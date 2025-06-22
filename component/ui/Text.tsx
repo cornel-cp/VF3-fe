@@ -16,10 +16,13 @@ export const Text = ({
       default: "text-text-primary",
       secondary: "text-text-secondary",
       muted: "text-text-muted",
-      accent: "text-primary-400",
-      success: "text-accent-green",
-      warning: "text-accent-orange",
+      accent: "text-primary",
+      success: "text-highlight",
+      warning: "text-primary/80",
       danger: "text-accent-red",
+      cyber: "text-highlight font-mono",
+      neon: "text-primary drop-shadow-glow",
+      matrix: "text-highlight font-mono text-xs tracking-wider animate-flicker",
     };
     
     const sizes = {
