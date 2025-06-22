@@ -9,124 +9,121 @@ const config: Config = {
     theme: {
       extend: {
         colors: {
-          // Primary brand colors
+          // Primary neon lime green colors
           primary: {
-            DEFAULT: '#843dff',
-            50: '#f3f1ff',
-            100: '#ebe5ff',
-            200: '#d9ceff',
-            300: '#bea6ff',
-            400: '#9f75ff',
-            500: '#843dff',
-            600: '#7c1aff',
-            700: '#7012ea',
-            800: '#5a0fc4',
-            900: '#4b0da2',
-            950: '#2d0663',
+            DEFAULT: '#B6FF4C',
+            50: '#F7FFE6',
+            100: '#EFFFCC',
+            200: '#E4FF99',
+            300: '#D4FF82', // Glow aura soft chartreuse
+            400: '#C5FF66',
+            500: '#B6FF4C', // Main neon lime green
+            600: '#9FE62D',
+            700: '#7ACC1F',
+            800: '#5C9915',
+            900: '#3D660E',
+            950: '#1F3307',
           },
-          // Dark theme colors
-          dark: {
-            DEFAULT: '#1e293b',
-            50: '#f8fafc',
-            100: '#f1f5f9',
-            200: '#e2e8f0',
-            300: '#cbd5e1',
-            400: '#94a3b8',
-            500: '#64748b',
-            600: '#475569',
-            700: '#334155',
-            800: '#1e293b',
-            900: '#0f172a',
-            950: '#020617',
+          // Cyber teal highlight color
+          highlight: {
+            DEFAULT: '#00FFC3',
+            50: '#E6FFFA',
+            100: '#CCFFF5',
+            200: '#99FFEB',
+            300: '#66FFE0',
+            400: '#33FFD6',
+            500: '#00FFC3', // Main cyber teal
+            600: '#00CC9C',
+            700: '#009974',
+            800: '#00664D',
+            900: '#003326',
+            950: '#001A13',
           },
-          // Background colors for the dark theme
+          // Background colors - rich black theme
           background: {
-            DEFAULT: '#0a0a0b',
-            primary: '#0a0a0b',
-            secondary: '#1a1a1d',
-            tertiary: '#2d2d33',
-            quaternary: '#3a3a42',
+            DEFAULT: '#060606', // Rich black
+            primary: '#060606',
+            secondary: '#0A0A0A',
+            tertiary: '#0F0F0F',
+            quaternary: '#141414',
           },
           // Surface colors
           surface: {
-            DEFAULT: '#1e1e23',
-            primary: '#1e1e23',
-            secondary: '#26262d',
-            tertiary: '#2f2f38',
-            elevated: '#35353f',
+            DEFAULT: '#1A1F1A', // Muted greenish gray
+            primary: '#1A1F1A',
+            secondary: '#1F241F',
+            tertiary: '#242924',
+            elevated: '#292E29',
           },
           // Text colors
           text: {
-            DEFAULT: '#ffffff',
-            primary: '#ffffff',
-            secondary: '#a1a1aa',
-            tertiary: '#71717a',
-            muted: '#52525b',
+            DEFAULT: '#B6FF4C', // Neon lime green for primary text
+            primary: '#B6FF4C',
+            secondary: '#B9B9B9', // Light gray for supporting text
+            tertiary: '#8A8A8A',
+            muted: '#6B6B6B',
+            contrast: '#060606', // For text on bright backgrounds
           },
-          // Accent colors from the image
+          // Accent colors
           accent: {
-            DEFAULT: '#843dff',
-            purple: '#843dff',
-            pink: '#ff4081',
-            cyan: '#00bcd4',
-            orange: '#ff9800',
-            red: '#f44336',
-            green: '#4caf50',
+            DEFAULT: '#00FFC3', // Cyber teal
+            teal: '#00FFC3',
+            green: '#B6FF4C',
+            gray: '#1A1F1A', // Muted greenish gray
+            light: '#B9B9B9',
           },
           // Gradient colors
           gradient: {
-            DEFAULT: '#843dff',
-            purple: {
-              from: '#843dff',
-              to: '#7c1aff',
+            DEFAULT: '#B6FF4C',
+            neon: {
+              from: '#B6FF4C',
+              to: '#D4FF82',
             },
-            pink: {
-              from: '#ff4081',
-              to: '#e91e63',
+            teal: {
+              from: '#00FFC3',
+              to: '#00CC9C',
             },
-            cyan: {
-              from: '#00bcd4',
-              to: '#0097a7',
+            cyber: {
+              from: '#B6FF4C',
+              via: '#00FFC3',
+              to: '#D4FF82',
             },
-            multicolor: {
-              from: '#ff4081',
-              via: '#843dff',
-              to: '#00bcd4',
+            dark: {
+              from: '#060606',
+              to: '#1A1F1A',
             },
           },
+          // Ring colors for focus states
           ringColor: {
-            DEFAULT: '#843dff',
+            DEFAULT: '#B6FF4C',
             primary: {
-              DEFAULT: '#843dff',
-              50: '#f3f1ff',
-              100: '#ebe5ff',
-              200: '#d9ceff',
-              300: '#bea6ff',
-              400: '#9f75ff',
-              500: '#843dff',
-              600: '#7c1aff',
-              700: '#7012ea',
-              800: '#5a0fc4',
-              900: '#4b0da2',
-              950: '#2d0663',
+              DEFAULT: '#B6FF4C',
+              50: '#F7FFE6',
+              100: '#EFFFCC',
+              200: '#E4FF99',
+              300: '#D4FF82',
+              400: '#C5FF66',
+              500: '#B6FF4C',
+              600: '#9FE62D',
+              700: '#7ACC1F',
+              800: '#5C9915',
+              900: '#3D660E',
+              950: '#1F3307',
             },
+            highlight: '#00FFC3',
           },
           ringOffsetColor: {
-            DEFAULT: '#843dff',
-            primary: {
-              DEFAULT: '#843dff',
-              50: '#f3f1ff',
-              100: '#ebe5ff',
-              200: '#d9ceff',
-              300: '#bea6ff',
-              400: '#9f75ff',
-              500: '#843dff',
-              600: '#7c1aff',
-              700: '#7012ea',
-              800: '#5a0fc4',
-              900: '#4b0da2',
-              950: '#2d0663',
-            },
+            DEFAULT: '#060606',
+            primary: '#060606',
+            surface: '#1A1F1A',
+          },
+          // Border colors
+          border: {
+            DEFAULT: '#1A1F1A', // Muted greenish gray
+            primary: '#B6FF4C',
+            secondary: '#00FFC3',
+            muted: '#B9B9B9',
+            dark: '#060606',
           },
         },
         fontFamily: {
@@ -157,14 +154,28 @@ const config: Config = {
           '4xl': '2rem',
         },
         boxShadow: {
-          'glow': '0 0 20px rgba(132, 61, 255, 0.3)',
-          'glow-lg': '0 0 30px rgba(132, 61, 255, 0.4)',
-          'glow-xl': '0 0 40px rgba(132, 61, 255, 0.5)',
-          'card': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
-          'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)',
-          'inner-glow': 'inset 0 2px 4px 0 rgba(132, 61, 255, 0.1)',
-          'dark': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-          'dark-lg': '0 35px 60px -12px rgba(0, 0, 0, 0.6)',
+          // Neon green glow effects
+          'glow': '0 0 20px rgba(182, 255, 76, 0.4)',
+          'glow-lg': '0 0 30px rgba(182, 255, 76, 0.5)',
+          'glow-xl': '0 0 40px rgba(182, 255, 76, 0.6)',
+          'glow-2xl': '0 0 60px rgba(182, 255, 76, 0.7)',
+          // Cyber teal glow effects
+          'glow-teal': '0 0 20px rgba(0, 255, 195, 0.4)',
+          'glow-teal-lg': '0 0 30px rgba(0, 255, 195, 0.5)',
+          'glow-teal-xl': '0 0 40px rgba(0, 255, 195, 0.6)',
+          // Soft chartreuse outer glow
+          'aura': '0 0 40px rgba(212, 255, 130, 0.3)',
+          'aura-lg': '0 0 60px rgba(212, 255, 130, 0.4)',
+          // Card shadows for dark theme
+          'card': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
+          'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4)',
+          'card-glow': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 0 20px rgba(182, 255, 76, 0.2)',
+          // Inner glow effects
+          'inner-glow': 'inset 0 2px 4px 0 rgba(182, 255, 76, 0.1)',
+          'inner-glow-teal': 'inset 0 2px 4px 0 rgba(0, 255, 195, 0.1)',
+          // Dark theme shadows
+          'dark': '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+          'dark-lg': '0 35px 60px -12px rgba(0, 0, 0, 0.8)',
         },
         backdropBlur: {
           'xs': '2px',
@@ -172,14 +183,24 @@ const config: Config = {
         animation: {
           'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           'bounce-slow': 'bounce 2s infinite',
-          'glow': 'glow 2s ease-in-out infinite alternate',
+          'glow': 'neon-glow 2s ease-in-out infinite alternate',
+          'glow-teal': 'teal-glow 2s ease-in-out infinite alternate',
           'gradient': 'gradient 3s ease infinite',
           'float': 'float 6s ease-in-out infinite',
+          'flicker': 'flicker 1.5s infinite linear',
         },
         keyframes: {
-          glow: {
-            '0%': { boxShadow: '0 0 20px rgba(132, 61, 255, 0.3)' },
-            '100%': { boxShadow: '0 0 30px rgba(132, 61, 255, 0.6)' },
+          'neon-glow': {
+            '0%': { 
+              boxShadow: '0 0 20px rgba(182, 255, 76, 0.4), 0 0 40px rgba(212, 255, 130, 0.2)' 
+            },
+            '100%': { 
+              boxShadow: '0 0 30px rgba(182, 255, 76, 0.6), 0 0 60px rgba(212, 255, 130, 0.4)' 
+            },
+          },
+          'teal-glow': {
+            '0%': { boxShadow: '0 0 20px rgba(0, 255, 195, 0.4)' },
+            '100%': { boxShadow: '0 0 30px rgba(0, 255, 195, 0.6)' },
           },
           gradient: {
             '0%, 100%': { backgroundPosition: '0% 50%' },
@@ -189,11 +210,16 @@ const config: Config = {
             '0%, 100%': { transform: 'translateY(0px)' },
             '50%': { transform: 'translateY(-10px)' },
           },
+          flicker: {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '0.8' },
+          },
         },
         backgroundImage: {
           'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
           'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-          'gradient-mesh': 'linear-gradient(135deg, rgba(132, 61, 255, 0.1) 0%, rgba(255, 64, 129, 0.1) 100%)',
+          'gradient-neon': 'linear-gradient(135deg, rgba(182, 255, 76, 0.1) 0%, rgba(0, 255, 195, 0.1) 100%)',
+          'gradient-cyber': 'linear-gradient(45deg, rgba(182, 255, 76, 0.05) 0%, rgba(212, 255, 130, 0.05) 50%, rgba(0, 255, 195, 0.05) 100%)',
         },
       },
     },
