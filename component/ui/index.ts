@@ -7,3 +7,5 @@ export { Heading } from "./Heading";
 export { Input } from "./Input";
 export { ProgressBar } from "./ProgressBar";
 export { Text } from "./Text";
+export { Spinner } from "./Spinner";
+export { Switch } from "./Switch";
