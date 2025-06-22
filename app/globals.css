@@ -1,23 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #060606;
+  --foreground: #B6FF4C;
 }
-
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
 
 body {
   background: var(--background);
@@ -25,30 +11,52 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 @theme inline {
-  /* Colors */
-  --color-primary-400: #a855f7;
-  --color-primary-500: #9333ea;
-  --color-primary-600: #7c3aed;
-  --color-accent-pink: #ff4081;
-  --color-accent-cyan: #00bcd4;
-  --color-surface-primary: #1e1e23;
-  --color-surface-tertiary: #2a2a2f;
-  --color-surface-elevated: #353540;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a3a3a3;
-  --color-background-primary: #0a0a0a;
-  --color-border: rgba(255, 255, 255, 0.1);
+  /* Neon Green Primary Colors */
+  --color-primary-300: #D4FF82;  /* Soft chartreuse - glow aura */
+  --color-primary-400: #C5FF66;
+  --color-primary-500: #B6FF4C;  /* Main neon lime green */
+  --color-primary-600: #9FE62D;
+  
+  /* Cyber Teal Accent Colors */
+  --color-accent-teal: #00FFC3;   /* Main cyber teal highlight */
+  --color-accent-teal-dark: #00CC9C;
+  --color-accent-green: #B6FF4C; /* Neon lime green */
+  
+  /* Background Colors - Rich Black Theme */
+  --color-background-primary: #060606;    /* Rich black */
+  --color-background-secondary: #0A0A0A;
+  --color-background-tertiary: #0F0F0F;
+  
+  /* Surface Colors - Muted Greenish Gray */
+  --color-surface-primary: #1A1F1A;       /* Muted greenish gray */
+  --color-surface-secondary: #1F241F;
+  --color-surface-tertiary: #242924;
+  --color-surface-elevated: #292E29;
+  
+  /* Text Colors */
+  --color-text-primary: #B6FF4C;          /* Neon lime green */
+  --color-text-secondary: #B9B9B9;        /* Light gray supporting text */
+  --color-text-tertiary: #8A8A8A;
+  --color-text-muted: #6B6B6B;
+  --color-text-contrast: #060606;         /* For text on bright backgrounds */
+  
+  /* Border Colors */
+  --color-border: rgba(182, 255, 76, 0.2);    /* Neon green with opacity */
+  --color-border-muted: rgba(185, 185, 185, 0.1); /* Light gray with opacity */
+  --color-border-surface: rgba(26, 31, 26, 1);     /* Muted greenish gray */
   
   /* Fonts */
   --font-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-jetbrains-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace);
   
-  /* Shadows */
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Neon Glow Shadows */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-glow-neon: 0 0 20px rgba(182, 255, 76, 0.4), 0 0 40px rgba(212, 255, 130, 0.2);
+  --shadow-glow-teal: 0 0 20px rgba(0, 255, 195, 0.4);
   --shadow-inner-glow: inset 0 0 0 1px var(--color-primary-500), 0 0 0 1px var(--color-primary-500);
+  --shadow-inner-glow-teal: inset 0 0 0 1px var(--color-accent-teal), 0 0 0 1px var(--color-accent-teal);
 }
 
 /* Base styles */
@@ -68,7 +76,7 @@ html {
   color-scheme: dark;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with neon theme */
 .scrollbar-custom {
   scrollbar-width: thin;
   scrollbar-color: var(--color-surface-tertiary) var(--color-surface-primary);
@@ -89,15 +97,23 @@ html {
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: var(--color-surface-elevated);
+  background: var(--color-primary-500);
+  box-shadow: 0 0 10px rgba(182, 255, 76, 0.3);
 }
 
-/* Glass effect */
+/* Glass effect with neon theme */
 .glass {
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(30, 30, 35, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(26, 31, 26, 0.8);  /* Muted greenish gray */
+  border: 1px solid rgba(182, 255, 76, 0.1);
+}
+
+.glass-teal {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(6, 6, 6, 0.9);
+  border: 1px solid rgba(0, 255, 195, 0.2);
 }
 
 /* Shimmer animation for progress bars */
@@ -114,21 +130,43 @@ html {
   animation: shimmer 2s infinite;
 }
 
-/* Glow effects */
+/* Neon glow effects */
 .glow {
-  box-shadow: 0 0 20px rgba(132, 61, 255, 0.3);
+  box-shadow: var(--shadow-glow-neon);
 }
 
 .glow-lg {
-  box-shadow: 0 0 30px rgba(132, 61, 255, 0.4);
+  box-shadow: 0 0 30px rgba(182, 255, 76, 0.5), 0 0 60px rgba(212, 255, 130, 0.3);
 }
 
 .glow-xl {
-  box-shadow: 0 0 40px rgba(132, 61, 255, 0.5);
+  box-shadow: 0 0 40px rgba(182, 255, 76, 0.6), 0 0 80px rgba(212, 255, 130, 0.4);
 }
 
+.glow-2xl {
+  box-shadow: 0 0 60px rgba(182, 255, 76, 0.7), 0 0 120px rgba(212, 255, 130, 0.5);
+}
+
+/* Cyber teal glow effects */
+.glow-teal {
+  box-shadow: var(--shadow-glow-teal);
+}
+
+.glow-teal-lg {
+  box-shadow: 0 0 30px rgba(0, 255, 195, 0.5);
+}
+
+.glow-teal-xl {
+  box-shadow: 0 0 40px rgba(0, 255, 195, 0.6);
+}
+
+/* Drop shadow glows */
 .drop-shadow-glow {
-  filter: drop-shadow(0 0 10px rgba(132, 61, 255, 0.5));
+  filter: drop-shadow(0 0 10px rgba(182, 255, 76, 0.5));
+}
+
+.drop-shadow-glow-teal {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 195, 0.5));
 }
 
 /* Gradient animations */
@@ -146,6 +184,36 @@ html {
   }
 }
 
+/* Neon flicker animation */
+@keyframes neon-flicker {
+  0%, 100% { 
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% { 
+    opacity: 0.8;
+    filter: brightness(0.8);
+  }
+}
+
+.animate-flicker {
+  animation: neon-flicker 1.5s infinite linear;
+}
+
+/* Pulsing glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(182, 255, 76, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(182, 255, 76, 0.6), 0 0 60px rgba(212, 255, 130, 0.3);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
 /* Focus styles */
 .focus-ring {
   outline: none;
@@ -154,6 +222,13 @@ html {
 .focus-ring:focus {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
+  box-shadow: var(--shadow-glow-neon);
+}
+
+.focus-ring-teal:focus {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-glow-teal);
 }
 
 /* Button hover effects */
@@ -164,10 +239,16 @@ html {
 
 .btn-hover:hover {
   transform: scale(1.05);
+  box-shadow: var(--shadow-glow-neon);
 }
 
 .btn-hover:active {
   transform: scale(0.95);
+}
+
+.btn-hover-teal:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow-teal);
 }
 
 /* Card hover effects */
@@ -179,13 +260,18 @@ html {
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--shadow-card-hover), var(--shadow-glow-neon);
 }
 
-/* Text selection */
+/* Text selection with neon theme */
 ::selection {
-  background: rgba(132, 61, 255, 0.3);
-  color: var(--color-text-primary);
+  background: rgba(182, 255, 76, 0.3);
+  color: var(--color-text-contrast);
+}
+
+::-moz-selection {
+  background: rgba(182, 255, 76, 0.3);
+  color: var(--color-text-contrast);
 }
 
 /* Custom input styles */
@@ -193,28 +279,55 @@ html {
   box-shadow: var(--shadow-inner-glow);
 }
 
-/* Text gradients */
+.input-glow-teal:focus {
+  box-shadow: var(--shadow-inner-glow-teal);
+}
+
+/* Neon text gradients */
 .text-gradient {
-  background: linear-gradient(to right, var(--color-primary-400), var(--color-accent-pink));
+  background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-300));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-.text-gradient-cyan {
-  background: linear-gradient(to right, var(--color-accent-cyan), var(--color-primary-400));
+.text-gradient-teal {
+  background: linear-gradient(to right, var(--color-accent-teal), var(--color-primary-500));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.text-gradient-cyber {
+  background: linear-gradient(45deg, var(--color-primary-500), var(--color-accent-teal), var(--color-primary-300));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
 }
 
 /* Background gradients */
 .bg-gradient-mesh {
-  background: linear-gradient(135deg, rgba(132, 61, 255, 0.1) 0%, rgba(255, 64, 129, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(182, 255, 76, 0.1) 0%, rgba(0, 255, 195, 0.1) 100%);
 }
 
 .bg-gradient-radial {
-  background: radial-gradient(circle at center, rgba(132, 61, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(182, 255, 76, 0.2) 0%, transparent 70%);
+}
+
+.bg-gradient-radial-teal {
+  background: radial-gradient(circle at center, rgba(0, 255, 195, 0.2) 0%, transparent 70%);
+}
+
+.bg-gradient-cyber {
+  background: linear-gradient(45deg, 
+    rgba(182, 255, 76, 0.05) 0%, 
+    rgba(212, 255, 130, 0.05) 33%, 
+    rgba(0, 255, 195, 0.05) 66%, 
+    rgba(182, 255, 76, 0.05) 100%);
+  background-size: 200% 200%;
+  animation: gradient 6s ease infinite;
 }
 
 /* Animation delays */
@@ -234,6 +347,14 @@ html {
   animation-delay: 500ms;
 }
 
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
 /* Aspect ratios */
 .aspect-card {
   aspect-ratio: 16 / 10;
@@ -243,11 +364,39 @@ html {
   aspect-ratio: 1 / 1;
 }
 
+/* Utility classes for neon theme */
+.border-glow {
+  border: 1px solid var(--color-primary-500);
+  box-shadow: 0 0 10px rgba(182, 255, 76, 0.2);
+}
+
+.border-glow-teal {
+  border: 1px solid var(--color-accent-teal);
+  box-shadow: 0 0 10px rgba(0, 255, 195, 0.2);
+}
+
+/* Loading spinner with neon effect */
+@keyframes spin-glow {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: 0 0 10px rgba(182, 255, 76, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(182, 255, 76, 0.6);
+  }
+  100% {
+    transform: rotate(360deg);
+    box-shadow: 0 0 10px rgba(182, 255, 76, 0.4);
+  }
+}
+
+.animate-spin-glow {
+  animation: spin-glow 1s linear infinite;
+}
+
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
-
-
