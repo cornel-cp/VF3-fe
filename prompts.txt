@@ -1,0 +1,6 @@
+I am going to make the promptwar betting, two player will create their character with the veo3 api and the backend will predict the battle result and also generate the fighting video from veo 3.
+But to make the character from each user's prompt, we should have the certain prompt template to make the battle fair, therefore the backend can predict the result using the openai api.
+so plz provide the proper prompt template the users will follow and the system prompt the backend will use for veo3 api
+
+
+

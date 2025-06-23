@@ -13,7 +13,7 @@ export const Text = ({
     className?: string;
   }) => {
     const variants = {
-      default: "text-text-primary",
+      default: "text-primary",
       secondary: "text-text-secondary",
       muted: "text-text-muted",
       accent: "text-primary",
