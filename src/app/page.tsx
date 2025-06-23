@@ -11,7 +11,7 @@ import {
   Input, 
   Avatar, 
   Container 
-} from '@/component/ui';
+} from '@/components/ui';
 import { 
   Bell, 
   Settings, 
@@ -32,38 +32,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background-primary">
-      {/* Header */}
-      <header className="border-b border-surface-tertiary bg-surface-primary/80 backdrop-blur-lg sticky top-0 z-50">
-        <Container>
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="hover:text-primary hover:shadow-glow">
-                <Bell className="w-5 h-5" />
-              </Button>
-              <Button variant="ghost" size="sm" className="hover:text-primary hover:shadow-glow">
-                <Settings className="w-5 h-5" />
-              </Button>
-              <Button variant="ghost" size="sm" className="hover:text-highlight hover:shadow-glow-teal">
-                <Heart className="w-5 h-5" />
-              </Button>
-            </div>
-            
-            <Button variant="primary" className="rounded-full p-3 animate-pulse-glow">
-              <Plus className="w-5 h-5" />
-            </Button>
-            
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="hover:text-primary hover:shadow-glow">
-                <Settings className="w-5 h-5" />
-              </Button>
-              <Button variant="ghost" size="sm" className="hover:text-primary hover:shadow-glow">
-                <Search className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </header>
-
       <Container className="py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           

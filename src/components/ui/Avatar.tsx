@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export const Avatar = ({
   src,
   alt = "",
