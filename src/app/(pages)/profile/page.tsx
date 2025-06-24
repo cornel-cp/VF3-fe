@@ -270,11 +270,13 @@ const UserProfilePage = () => {
           <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
             <div className="relative">
               {/* Avatar */}
-              <div className="w-32 h-32 rounded-full border-4 border-surface-primary shadow-glow overflow-hidden">
+              <div className="w-32 h-32 rounded-full border-4 border-surface-primary shadow-glow overflow-hidden relative">
                 <Image
                   src={isEditing && editForm ? editForm.avatar : contextUser.avatar}
                   alt="Avatar"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="128px"
+                  className="object-cover"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
