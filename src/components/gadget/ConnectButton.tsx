@@ -54,7 +54,7 @@ export const ConnectButton = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [publicKey, signMessage]);
+  }, [publicKey, signMessage, setUser]);
 
   const signIn = useCallback(async () => {
     if (!signMessage || !publicKey) return;
@@ -95,7 +95,7 @@ export const ConnectButton = () => {
     } catch (error) {
       initAuth();
     }
-  }, [publicKey, signMessage, initAuth]);
+  }, [publicKey, signMessage, initAuth, setUser]);
 
   const handleSignOut = () => {
     localStorage.removeItem("accessToken");

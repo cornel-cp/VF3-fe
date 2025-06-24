@@ -3,6 +3,7 @@ import { WalletReadyState, WalletName } from "@solana/wallet-adapter-base";
 import { Card, Switch } from "../ui";
 import { useState, useCallback, useEffect } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 interface WalletInfo {
   name: WalletName;
@@ -95,13 +96,13 @@ export const ConnectWalletModal = ({
         setTimeout(() => setConnectingWallet(null), 500);
       }
     },
-    [select, connect, onSuccess, onClose]
+    [select, onSuccess, onClose]
   );
 
   useEffect(() => {
     if (!wallet) return;
     connect();
-  }, [wallet]);
+  }, [connect, wallet]);
 
   const getWalletStatus = (walletInfo: WalletInfo) => {
     if (connectingWallet === walletInfo.name) {
@@ -301,7 +302,7 @@ export const ConnectWalletModal = ({
                             }
                           `}
                           >
-                            <img
+                            <Image
                               src={walletInfo.icon}
                               alt={walletInfo.name}
                               className="w-full h-full object-cover"

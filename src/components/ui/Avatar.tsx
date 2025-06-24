@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import Image from "next/image";
+
 export const Avatar = ({
   src,
   alt = "",
@@ -34,7 +37,14 @@ export const Avatar = ({
         className={`${sizeClasses} rounded-full bg-surface-tertiary border-2 border-primary/30 overflow-hidden flex items-center justify-center ${glowStyles} transition-all duration-300`}
       >
         {src ? (
-          <img src={src} alt={alt} className="w-full h-full object-cover" />
+          <div className="relative w-full h-full">
+            <Image 
+              src={src} 
+              alt={alt} 
+              fill
+              className="object-cover"
+            />
+          </div>
         ) : (
           <span className="font-medium text-primary font-mono">
             {fallback || alt.charAt(0).toUpperCase()}

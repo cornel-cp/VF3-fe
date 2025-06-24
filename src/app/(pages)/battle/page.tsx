@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Zap, Shield, Sword, Star, Trophy, Users, AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -87,10 +88,12 @@ const AICharacterBattle = () => {
     >
       {/* Character Image */}
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-t-xl">
-        <img 
-          src={character.image} 
+        <Image 
+          src={character.image || '/placeholder.jpg'} 
           alt={character.name}
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>

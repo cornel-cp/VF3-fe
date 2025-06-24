@@ -22,6 +22,7 @@ import { useConnectWalletModal } from "@/hooks/useConnectWalletModal";
 import { formatWalletAddress, formatBalance } from "@/utils/format";
 import { useUser } from "@/hooks/useUser";
 import { useWallet } from "@solana/wallet-adapter-react";
+import Image from "next/image";
 
 const initialUser: UserType = {
   avatar:
@@ -48,7 +49,6 @@ const UserProfilePage = () => {
     }
   }, [contextUser]);
 
-  console.log(contextUser);
   // Not connected state - show this first
   if (!connected) {
     return (
@@ -138,7 +138,7 @@ const UserProfilePage = () => {
                 No Profile Found
               </h2>
               <p className="text-text-secondary">
-                We couldn't find your profile data. Please try refreshing the page.
+                We couldn&apos;t find your profile data. Please try refreshing the page.
               </p>
             </div>
             <Button
@@ -271,7 +271,7 @@ const UserProfilePage = () => {
             <div className="relative">
               {/* Avatar */}
               <div className="w-32 h-32 rounded-full border-4 border-surface-primary shadow-glow overflow-hidden">
-                <img
+                <Image
                   src={isEditing && editForm ? editForm.avatar : contextUser.avatar}
                   alt="Avatar"
                   className="w-full h-full object-cover"

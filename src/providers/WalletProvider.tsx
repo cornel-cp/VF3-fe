@@ -8,7 +8,7 @@ import { clusterApiUrl } from "@solana/web3.js";
 export const WalletConnectionProvider = ({children}: {children: ReactNode}) => {
     const network = WalletAdapterNetwork.Mainnet;
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-    const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], [network]);
+    const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets}>
