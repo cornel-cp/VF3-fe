@@ -8,7 +8,7 @@ export const Text = ({
     ...props 
   }: {
     children: ReactNode;
-    variant?: "default" | "secondary" | "muted" | "accent" | "success" | "warning" | "danger";
+    variant?: "default" | "secondary" | "muted" | "accent" | "success" | "warning" | "danger" | "gradient" | "cyber" | "neon" | "matrix";
     size?: "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
     className?: string;
   }) => {
@@ -23,6 +23,7 @@ export const Text = ({
       cyber: "text-highlight font-mono",
       neon: "text-primary drop-shadow-glow",
       matrix: "text-highlight font-mono text-xs tracking-wider animate-flicker",
+      gradient: "text-gradient-cyber animate-gradient"
     };
     
     const sizes = {

@@ -2,7 +2,6 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletReadyState, WalletName } from "@solana/wallet-adapter-base";
 import { Card, Switch } from "../ui";
 import { useState, useCallback, useEffect } from "react";
-import { useModal } from "@/contexts/ModalContext";
 import { X } from "lucide-react";
 
 interface WalletInfo {
@@ -72,7 +71,7 @@ export const ConnectWalletModal = ({
       try {
         // Select and connect the wallet
         select(walletInfo.name);
-        await connect();
+        // await connect();
 
         // Success handling
         setTimeout(() => {
@@ -98,6 +97,11 @@ export const ConnectWalletModal = ({
     },
     [select, connect, onSuccess, onClose]
   );
+
+  useEffect(() => {
+    if (!wallet) return;
+    connect();
+  }, [wallet]);
 
   const getWalletStatus = (walletInfo: WalletInfo) => {
     if (connectingWallet === walletInfo.name) {
@@ -159,67 +163,6 @@ export const ConnectWalletModal = ({
     );
   };
 
-  // Success state with beautiful animation
-  if (connected && wallet) {
-    return (
-      <div
-        className={`transform transition-all duration-500 ${
-          isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
-        }`}
-      >
-        <Card
-          hover={false}
-          variant="default"
-          className="relative overflow-hidden bg-gradient-to-br from-surface-primary to-surface-secondary border border-primary/20 shadow-glow"
-        >
-          {/* Animated background gradient */}
-          <div className="absolute inset-0 bg-gradient-cyber opacity-30 animate-gradient bg-[length:200%_200%]"></div>
-
-          <div className="relative p-8 text-center">
-            {/* Success icon with glow */}
-            <div className="mb-6 relative">
-              <div className="w-20 h-20 mx-auto relative">
-                <img
-                  src={wallet.adapter.icon}
-                  alt={wallet.adapter.name}
-                  className="w-full h-full rounded-full border-2 border-primary shadow-glow-lg animate-glow"
-                />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-glow animate-bounce-slow">
-                  <span className="text-background text-lg">✓</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Success message */}
-            <h3 className="text-xl font-bold text-primary mb-2 animate-pulse-slow">
-              Successfully Connected!
-            </h3>
-            <p className="text-lg font-medium text-highlight mb-1">
-              {wallet.adapter.name}
-            </p>
-            <p className="text-sm text-text-secondary mb-6 opacity-80">
-              Your wallet is ready for transactions
-            </p>
-
-            {/* Continue button */}
-            <button
-              onClick={onClose}
-              className="group relative px-8 py-3 bg-gradient-to-r from-primary to-highlight text-background font-bold rounded-xl 
-                         transform hover:scale-105 transition-all duration-300 shadow-glow hover:shadow-glow-lg
-                         focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-            >
-              <span className="relative z-10">Continue</span>
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-highlight to-primary opacity-0 group-hover:opacity-100 
-                              transition-opacity duration-300 rounded-xl"
-              ></div>
-            </button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
-
   return (
     <div
       className={`transform transition-all duration-700 ${
@@ -229,7 +172,7 @@ export const ConnectWalletModal = ({
       <Card
         hover={false}
         variant="default"
-        className="relative max-w-lg mx-auto overflow-hidden bg-gradient-to-br from-surface-primary to-surface-secondary border border-primary/10 shadow-card-glow"
+        className="relative max-w-lg mx-auto overflow-hidden border border-primary/10 shadow-card-glow"
       >
         {/* Subtle animated background */}
         <div className="absolute inset-0 bg-gradient-neon opacity-20 animate-gradient bg-[length:200%_200%]"></div>

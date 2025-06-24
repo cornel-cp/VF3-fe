@@ -97,7 +97,7 @@ export default function EnhancedModalOverlay({
       tabIndex={-1}
     >
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black opacity-50" aria-hidden="true" />
+      <div className="fixed inset-0 bg-black opacity-90" aria-hidden="true" />
 
       {/* Modal Content */}
       <div className="relative flex justify-center z-10 w-full" role="document">

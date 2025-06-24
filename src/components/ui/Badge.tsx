@@ -14,7 +14,10 @@ export const Badge = ({
     | "success"
     | "warning"
     | "danger"
-    | "gradient";
+    | "gradient"
+    | "cyber"
+    | "neon"
+    | "matrix";
   size?: "sm" | "md" | "lg";
   className?: string;
 }) => {
