@@ -7,6 +7,8 @@ import { Heading } from '../ui/Heading';
 import { X, Copy, ExternalLink } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { SolanaRpcService } from '@/lib/Solana';
+import { ApiService } from '@/lib/ApiService';
+import { useUser } from '@/hooks/useUser';
 
 interface DepositModalProps {
   onClose: () => void;
@@ -20,6 +22,7 @@ export const DepositModal = ({ onClose }: DepositModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { user, setUser } = useUser();
 
   React.useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 50);
@@ -56,14 +59,18 @@ export const DepositModal = ({ onClose }: DepositModalProps) => {
         parseFloat(amount), 
         wallet
       );
+
+      const response = await ApiService.getInstance().sendDepositSignature(signature);
+      if (response.success) {
+        setSuccess('Deposit successful!');
+        setUser(response.user)
+        setTimeout(() => {
+          onClose();
+        }, 3000);
+      } else {
+        setError('Deposit failed. Please try again.');
+      }
       
-      setSuccess(`Deposit successful! Transaction: ${signature.slice(0, 8)}...`);
-      console.log('Deposit successful:', signature);
-      
-      // Close modal after a brief delay to show success message
-      setTimeout(() => {
-        onClose();
-      }, 2000);
     } catch (error) {
       console.error('Deposit failed:', error);
       setError(error instanceof Error ? error.message : 'Deposit failed. Please try again.');

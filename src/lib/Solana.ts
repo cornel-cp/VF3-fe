@@ -68,6 +68,7 @@ export class SolanaRpcService {
       // Send the transaction using the wallet (it handles signing internally)
       const signature = await wallet.sendTransaction!(transaction, this.connection);
 
+      await this.connection.confirmTransaction(signature);
       return signature;
     } catch (error) {
       console.error('Transaction failed:', error);

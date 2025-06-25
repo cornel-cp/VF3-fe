@@ -58,6 +58,7 @@ export const ConnectButton = () => {
         }
       }
     } catch (error) {
+      handleSignOut()
       console.error(error);
     }
   }, [publicKey, signMessage, setUser]);
@@ -147,7 +148,7 @@ export const ConnectButton = () => {
     }
   }, [publicKey, setUser]);
 
-  if (!isConnected) {
+  if (!user) {
     return (
       <Button
         glow

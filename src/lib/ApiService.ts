@@ -1,8 +1,7 @@
-
 import axios, { AxiosInstance } from "axios";
 import { UserUpdate } from "@/types";
 
-export class ApiService {
+export class  ApiService {
   private static instance: ApiService;
   private baseUrl: string;
   private axiosInstance: AxiosInstance;
@@ -74,6 +73,33 @@ export class ApiService {
 
   public async submitPrompt(name: string, prompt: string) {
     const response = await this.axiosInstance.post(`/video/generate`, { name, prompt }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async sendDepositSignature(txHash: string) {
+    const response = await this.axiosInstance.post(`/user/deposit`, { txHash }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async withdrawRequest(amount: number, walletAddress: string) {
+    const response = await this.axiosInstance.post(`/user/withdraw-request`, { amount, walletAddress }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async withdraw(signedMessage: string) {
+    const response = await this.axiosInstance.post('/user/withdraw', { signedMessage }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
       },
