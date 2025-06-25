@@ -10,7 +10,7 @@ export const Card = ({
 }: {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "elevated" | "glass" | "gradient";
+  variant?: "default" | "elevated" | "glass" | "gradient" | "neon" | "cyber";
   hover?: boolean;
   glow?: boolean;
 }) => {

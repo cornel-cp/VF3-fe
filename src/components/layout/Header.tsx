@@ -5,13 +5,36 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ConnectButton } from "@/components/gadget/ConnectButton";
 import { Logo } from "@/components/gadget/Logo";
+import { Text } from "@/components/ui/Text";
+import Link from "next/link";
+
+const HeaderMenu = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Battle",
+    href: "/battle",
+  },{
+    label: "Leaderboard",
+    href: "/leaderboard",
+  }
+]
 
 export const Header = () => {
   return (
-    <header className="border-b border-surface-tertiary bg-surface-primary/80 backdrop-blur-lg sticky top-0 z-50">
-      <Container>
+    <header className="border-b border-surface-tertiary bg-surface-primary/30 backdrop-blur-lg sticky top-0 z-50">
+      <Container size="xl">
         <div className="flex items-center justify-between h-16">
           <Logo/>
+          <div className="flex items-center space-x-4">
+            {HeaderMenu.map((item) => (
+              <Link href={item.href} key={item.label} className="text-text-primary hover:text-primary">
+                <Text>{item.label}</Text>
+              </Link>
+            ))} 
+          </div>
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"

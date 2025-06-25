@@ -24,7 +24,7 @@ export const ConnectWalletModal = ({
   onSuccess,
   showOnlyInstalled = false,
 }: ConnectWalletModalProps) => {
-  const { wallets, select, connect, connecting, connected, wallet } =
+  const { wallets, select, connect, connecting, connected, wallet, disconnect } =
     useWallet();
   const [connectingWallet, setConnectingWallet] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -39,13 +39,18 @@ export const ConnectWalletModal = ({
   }, []);
 
   // Process wallet information
-  const availableWallets: WalletInfo[] = wallets.map((wallet) => ({
-    name: wallet.adapter.name,
-    url: wallet.adapter.url,
-    icon: wallet.adapter.icon,
-    installed: wallet.readyState === WalletReadyState.Installed,
-    readyState: wallet.readyState,
-  }));
+  const availableWallets: WalletInfo[] = [];
+  wallets.forEach((wallet) => {
+    if (wallet.adapter.name != "MetaMask") {
+      availableWallets.push({
+        name: wallet.adapter.name,
+        url: wallet.adapter.url,
+        icon: wallet.adapter.icon,
+        installed: wallet.readyState === WalletReadyState.Installed,
+        readyState: wallet.readyState,
+      });
+    }
+  });
 
   // Filter wallets based on user preference
   const displayWallets = showAll
@@ -72,7 +77,7 @@ export const ConnectWalletModal = ({
       try {
         // Select and connect the wallet
         select(walletInfo.name);
-        // await connect();
+        await connect();
 
         // Success handling
         setTimeout(() => {
@@ -82,7 +87,7 @@ export const ConnectWalletModal = ({
       } catch (err) {
         console.error(`Failed to connect to ${walletInfo.name}:`, err);
         let errorMessage = "Failed to connect wallet";
-
+        disconnect();
         if (err instanceof Error) {
           if (err.message.includes("User rejected")) {
             errorMessage = "Connection rejected. Please try again";
@@ -98,11 +103,6 @@ export const ConnectWalletModal = ({
     },
     [select, onSuccess, onClose]
   );
-
-  useEffect(() => {
-    if (!wallet) return;
-    connect();
-  }, [connect, wallet]);
 
   const getWalletStatus = (walletInfo: WalletInfo) => {
     if (connectingWallet === walletInfo.name) {
@@ -254,8 +254,8 @@ export const ConnectWalletModal = ({
 
                 return (
                   <div
-                    key={walletInfo.name}
-                    className={`group relative overflow-hidden rounded-xl border transition-all duration-300 cursor-pointer w-80
+                    key={index}
+                    className={`group relative overflow-hidden rounded-xl border transition-all duration-300 cursor-pointer w-100
                       ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} 
                       ${
                         walletInfo.installed
@@ -306,6 +306,7 @@ export const ConnectWalletModal = ({
                               src={walletInfo.icon}
                               alt={walletInfo.name}
                               className="w-full h-full object-cover"
+                              fill
                               onError={(e) => {
                                 (e.target as HTMLImageElement).src =
                                   "/default-wallet-icon.png";

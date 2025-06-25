@@ -31,7 +31,7 @@ export default function HomePage() {
   const [conversionValue, setConversionValue] = useState(537);
 
   return (
-    <div className="min-h-screen bg-background-primary">
+    <div className="min-h-screen">
       <Container className="py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           

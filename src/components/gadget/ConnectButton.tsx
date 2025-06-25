@@ -2,19 +2,25 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { Button } from "../ui/Button";
 import { useConnectWalletModal } from "@/hooks/useConnectWalletModal";
 import { useUser } from "@/hooks/useUser";
+import { useDepositModal } from "@/hooks/useDepositModal";
+import { useWithdrawModal } from "@/hooks/useWithdrawModal";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { ApiService } from "@/lib/ApiService";
-import { useAppContext } from "@/contexts/AppContext";
 import bs58 from "bs58";
-import { ChevronDown, Edit3, LogOut } from "lucide-react";
+import { ChevronDown, Edit3, LogOut, Plus, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { formatWalletAddress } from "@/utils/format";
 
 export const ConnectButton = () => {
+  // All hooks must be called at the top level, in the same order every time
   const router = useRouter();
-  const { openWalletModal, isConnected } = useConnectWalletModal();
   const { disconnect, connected, publicKey, signMessage } = useWallet();
-  const { user, setUser } = useAppContext();
+  const { user, setUser } = useUser();
+  const { openWalletModal, isConnected } = useConnectWalletModal();
+  const { openDepositModal } = useDepositModal();
+  const { openWithdrawModal } = useWithdrawModal();
+  
+  // State hooks
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -97,20 +103,41 @@ export const ConnectButton = () => {
     }
   }, [publicKey, signMessage, initAuth, setUser]);
 
-  const handleSignOut = () => {
+  const handleSignOut = useCallback(() => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("walletAddress");
-    setUser(null);
     disconnect();
+    setUser(null);
     setIsDropdownOpen(false);
-  };
+  }, [disconnect, setUser]);
+
+  const handleDeposit = useCallback(() => {
+    setIsDropdownOpen(false);
+    openDepositModal();
+  }, [openDepositModal]);
+
+  const handleWithdraw = useCallback(() => {
+    setIsDropdownOpen(false);
+    openWithdrawModal();
+  }, [openWithdrawModal]);
+
+  // Effect hooks
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (connected && publicKey) signIn();
   }, [signIn, connected, publicKey]);
 
-  // Update the wallet change effect to also clear walletAddress
   useEffect(() => {
     if (!publicKey) {
       localStorage.removeItem("accessToken");
@@ -134,41 +161,56 @@ export const ConnectButton = () => {
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <Button
-        variant="primary"
-        className="flex items-center space-x-2"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
-        <span>{user?.name || formatWalletAddress(publicKey?.toBase58() || "", 4, 2)}</span>
-        <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-      </Button>
+    <>
+      <div className="relative" ref={dropdownRef}>
+        <Button
+          variant="secondary"
+          className="flex items-center space-x-2"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        >
+          <span>{user?.name || formatWalletAddress(publicKey?.toBase58() || "", 4, 2)}</span>
+          <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+        </Button>
 
-      {/* Dropdown Menu */}
-      {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-xl border border-primary/20 bg-surface-primary shadow-lg overflow-hidden">
-          <div className="py-1">
-            <button
-              onClick={() => {
-                // Handle edit profile
-                setIsDropdownOpen(false);
-                router.push("/profile");
-              }}
-              className="flex items-center space-x-2 px-4 py-2 text-sm text-text-primary hover:bg-surface-secondary w-full text-left"
-            >
-              <Edit3 className="w-4 h-4" />
-              <span>Edit Profile</span>
-            </button>
-            <button
-              onClick={handleSignOut}
-              className="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-surface-secondary w-full text-left"
-            >
-              <LogOut className="w-4 h-4" />
-              <span>Sign Out</span>
-            </button>
+        {/* Dropdown Menu */}
+        {isDropdownOpen && (
+          <div className="absolute right-0 mt-2 w-48 rounded-xl border border-primary/20 bg-surface-primary shadow-lg overflow-hidden">
+            <div className="py-1">
+              <button
+                onClick={() => {
+                  setIsDropdownOpen(false);
+                  router.push("/profile");
+                }}
+                className="flex items-center space-x-2 px-4 py-2 text-sm text-text-primary hover:bg-surface-secondary w-full text-left"
+              >
+                <Edit3 className="w-4 h-4" />
+                <span>Edit Profile</span>
+              </button>
+              <button
+                onClick={handleDeposit}
+                className="flex items-center space-x-2 px-4 py-2 text-sm text-green-400 hover:bg-surface-secondary w-full text-left"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Deposit</span>
+              </button>
+              <button
+                onClick={handleWithdraw}
+                className="flex items-center space-x-2 px-4 py-2 text-sm text-yellow-400 hover:bg-surface-secondary w-full text-left"
+              >
+                <Minus className="w-4 h-4" />
+                <span>Withdraw</span>
+              </button>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-surface-secondary w-full text-left"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };

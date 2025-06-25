@@ -89,8 +89,12 @@ const UserProfilePage = () => {
               <Loader2 className="w-8 h-8 text-primary animate-spin" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-primary">Loading Profile</h2>
-              <p className="text-text-secondary">Please wait while we fetch your profile data.</p>
+              <h2 className="text-2xl font-bold text-primary">
+                Loading Profile
+              </h2>
+              <p className="text-text-secondary">
+                Please wait while we fetch your profile data.
+              </p>
             </div>
           </div>
         </Card>
@@ -108,8 +112,13 @@ const UserProfilePage = () => {
               <AlertCircle className="w-8 h-8 text-red-500" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-red-500">Error Loading Profile</h2>
-              <p className="text-text-secondary">{error.message || "Failed to load profile data. Please try again later."}</p>
+              <h2 className="text-2xl font-bold text-red-500">
+                Error Loading Profile
+              </h2>
+              <p className="text-text-secondary">
+                {error.message ||
+                  "Failed to load profile data. Please try again later."}
+              </p>
             </div>
             <Button
               variant="primary"
@@ -138,7 +147,8 @@ const UserProfilePage = () => {
                 No Profile Found
               </h2>
               <p className="text-text-secondary">
-                We couldn&apos;t find your profile data. Please try refreshing the page.
+                We couldn&apos;t find your profile data. Please try refreshing
+                the page.
               </p>
             </div>
             <Button
@@ -196,9 +206,12 @@ const UserProfilePage = () => {
 
     setIsSaving(true);
     try {
-      const avatar = await uploadToCDN(
-        new File([editForm.avatar], "avatar.png", { type: "image/png" })
-      );
+      let avatar = editForm.avatar;
+      if (editForm.avatar.includes("data:image")) {
+        avatar = await uploadToCDN(
+          new File([editForm.avatar], "avatar.png", { type: "image/png" })
+        );
+      }
       await ApiService.getInstance().updateUser({
         avatar: avatar,
         name: editForm.name,
@@ -206,9 +219,9 @@ const UserProfilePage = () => {
       setIsEditing(false);
     } catch (error) {
       console.error("Failed to update profile:", error);
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        submit: "Failed to update profile. Please try again."
+        submit: "Failed to update profile. Please try again.",
       }));
     } finally {
       setIsSaving(false);
@@ -217,7 +230,7 @@ const UserProfilePage = () => {
 
   const handleInputChange = (field: keyof UserType, value: string | number) => {
     if (!editForm) return;
-    
+
     setEditForm((prev) => ({
       ...prev!,
       [field]: value,
@@ -272,7 +285,9 @@ const UserProfilePage = () => {
               {/* Avatar */}
               <div className="w-32 h-32 rounded-full border-4 border-surface-primary shadow-glow overflow-hidden relative">
                 <Image
-                  src={isEditing && editForm ? editForm.avatar : contextUser.avatar}
+                  src={
+                    isEditing && editForm ? editForm.avatar : contextUser.avatar
+                  }
                   alt="Avatar"
                   fill
                   sizes="128px"

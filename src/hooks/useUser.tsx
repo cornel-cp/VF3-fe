@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 export const useUser = () => {
   const { user, setUser } = useAppContext();
   const { connected } = useWallet();
+  
   const {
     data: userData,
     isLoading,
@@ -24,8 +25,13 @@ export const useUser = () => {
       return user;
     },
     refetchInterval: 2000,
-    enabled: connected,
+    enabled: connected && !!user, // Only fetch when connected AND user exists
   });
 
-  return { user: userData, isLoading, error };
+  // If no user from context, return early values but still call all hooks
+  if (!user) {
+    return { user: null, isLoading: false, error: null, setUser };
+  }
+
+  return { user: userData, isLoading, error, setUser };
 };

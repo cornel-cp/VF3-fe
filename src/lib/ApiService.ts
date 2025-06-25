@@ -57,7 +57,7 @@ export class ApiService {
   public async getUser() {
     const response = await this.axiosInstance.get(`/user/me`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
       },
     });
     return response.data.user;
@@ -66,7 +66,16 @@ export class ApiService {
   public async updateUser(user: UserUpdate) {
     const response = await this.axiosInstance.post(`/user/update`, user, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async submitPrompt(name: string, prompt: string) {
+    const response = await this.axiosInstance.post(`/video/generate`, { name, prompt }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
       },
     });
     return response.data;
