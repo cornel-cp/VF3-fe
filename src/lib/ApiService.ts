@@ -71,8 +71,8 @@ export class  ApiService {
     return response.data;
   }
 
-  public async submitPrompt(name: string, prompt: string) {
-    const response = await this.axiosInstance.post(`/video/generate`, { name, prompt }, {
+  public async submitPrompt(formData: any) {
+    const response = await this.axiosInstance.post(`/video/generate`, {formData}, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
       },
@@ -106,4 +106,58 @@ export class  ApiService {
     });
     return response.data;
   }
+
+  public async getHeroes() {
+    const response = await this.axiosInstance.get('/user/heroes/all', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async getCharacterById(characterId: string) {
+    const response = await this.axiosInstance.get(`/user/heroes/${characterId}`);
+    return response.data.character;
+  }
+
+  public async createBattle(characterId: string, betAmount: number) {
+    const response = await this.axiosInstance.post('/battle/create', {
+      characterId,
+      betAmount
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async joinBattle(battleId: string, characterId: string) {
+    const response = await this.axiosInstance.post(`/battle/${battleId}/join`, {
+      characterId
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async getBattleById(battleId: string) {
+    const response = await this.axiosInstance.get(`/battle/${battleId}`);
+    return response.data;
+  }
+
+  public async getAllBattles() {
+    const response = await this.axiosInstance.get('/battle/all');
+    return response.data;
+  }
+
+  public async getLeaderboard(searchParams?: string) {
+    const url = searchParams ? `/user/leaderboard?searchParams=${encodeURIComponent(searchParams)}` : '/user/leaderboard';
+    const response = await this.axiosInstance.get(url);
+    return response.data;
+  }
+
 }

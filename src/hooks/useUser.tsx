@@ -30,7 +30,6 @@ export const useUser = () => {
 
       try {
         const user = await ApiService.getInstance().getUser();
-        console.log("Fetched user data:", user);
         if (user) {
           setUser(user);
         }

@@ -1,177 +1,140 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Zap, Star, Users, Loader2 } from 'lucide-react';
-import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Text } from '@/components/ui/Text';
 import { Heading } from '@/components/ui/Heading';
-import { Badge } from '@/components/ui/Badge';
+import { Spinner } from '@/components/ui/Spinner';
+import { ApiService } from '@/lib/ApiService';
+import { ICharacter } from '@/types';
+import { BattleCharacterCard } from '@/components/wedget/BattleCharacterCard';
 
-interface Character {
-  id: number;
-  name: string;
-  level: number;
-  element: string;
-  image: string;
-  description: string;
-}
 
-interface CharacterCardProps {
-  character: Character;
-  side: 'left' | 'right';
-  isWinner: 'left' | 'right' | null;
-}
 
-const AICharacterBattle = () => {
-  const [battleStarted, setBattleStarted] = useState(false);
-  const [winner, setWinner] = useState<'left' | 'right' | null>(null);
+const BattlePage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const characterId = searchParams.get('characterId');
+  
+  const [character, setCharacter] = useState<ICharacter | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [betAmount, setBetAmount] = useState<string>('0.1');
+  const [creating, setCreating] = useState(false);
 
-  const [leftCharacter] = useState<Character>({
-    id: 1,
-    name: "Cyber Sentinel",
-    level: 42,
-    element: "Electric",
-    image: "",
-    description: "A cybernetic guardian with lightning-fast reflexes and electromagnetic abilities."
-  });
+  useEffect(() => {
+    const fetchCharacter = async () => {
+      if (!characterId) return;
+      
+      try {
+        setLoading(true);
+        const characterData = await ApiService.getInstance().getCharacterById(characterId);
+        setCharacter(characterData);
+      } catch (err) {
+        console.error('Failed to fetch character:', err);
+        setError('Failed to load character');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const [rightCharacter] = useState<Character>({
-    id: 2,
-    name: "Neon Phantom",
-    level: 38,
-    element: "Shadow",
-    image: "",
-    description: "A mysterious entity that manipulates shadows and moves like liquid darkness."
-  });
+    fetchCharacter();
+  }, [characterId]);
 
-  const startBattle = () => {
-    setBattleStarted(true);
-    setTimeout(() => {
-      const randomWinner: 'left' | 'right' = Math.random() > 0.5 ? 'left' : 'right';
-      setWinner(randomWinner);
-    }, 3000);
+  const handleSelectHero = () => {
+    router.push('/heroes');
   };
 
-  const resetBattle = () => {
-    setBattleStarted(false);
-    setWinner(null);
+  const handleBetAmountChange = (value: string) => {
+    // Allow empty string for user to clear input
+    if (value === '') {
+      setBetAmount('');
+      return;
+    }
+    
+    // Allow only numbers and one decimal point
+    const cleanValue = value.replace(/[^0-9.]/g, '');
+    
+    // Prevent multiple decimal points
+    const parts = cleanValue.split('.');
+    if (parts.length > 2) {
+      return; // Don't update if multiple decimal points
+    }
+    
+    // Limit to 2 decimal places
+    if (parts[1] && parts[1].length > 2) {
+      setBetAmount(parts[0] + '.' + parts[1].substring(0, 2));
+      return;
+    }
+    
+    setBetAmount(cleanValue);
   };
 
-  const CharacterCard = ({ character, side, isWinner }: CharacterCardProps) => (
-    <Card 
-      variant={isWinner === side ? "gradient" : "default"}
-      className={`w-full max-w-md ${isWinner === side ? 'animate-pulse-glow' : ''} 
-        ${winner && winner !== side ? 'opacity-50' : ''}`}
-    >
-      {/* Character Image */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-t-xl">
-        <Image 
-          src={character.image || '/placeholder.jpg'} 
-          alt={character.name}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-      </div>
+  const handleCreateBattle = async () => {
+    if (!character || !betAmount?.trim()) return;
+    
+    // Clean and convert the input to number
+    const cleanAmount = betAmount.trim().replace(/[^0-9.]/g, ''); // Remove non-numeric chars except dots
+    const bet = parseFloat(cleanAmount);
+    
+    // Validate the number
+    if (isNaN(bet) || bet <= 0) {
+      setError('Please enter a valid bet amount (minimum 0.01 SOL)');
+      return;
+    }
+    
+    if (bet < 0.01) {
+      setError('Minimum bet amount is 0.01 SOL');
+      return;
+    }
 
-      {/* Character Info */}
-      <div className="p-4">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Heading level={3} variant="gradient">{character.name}</Heading>
-            <Badge variant="primary" size="lg">
-              <Star className="w-4 h-4 mr-1" />
-              {character.level}
-            </Badge>
-          </div>
+    try {
+      setCreating(true);
+      setError(null); // Clear any previous errors
+      const battleData = await ApiService.getInstance().createBattle(character._id, bet);
+      router.push(`/battle/${battleData._id}`);
+    } catch (err) {
+      console.error('Failed to create battle:', err);
+      setError('Failed to create battle');
+    } finally {
+      setCreating(false);
+    }
+  };
 
-          <Badge variant="cyber" size="md" className="w-full justify-center">
-            <Zap className="w-4 h-4 mr-1" />
-            {character.element} Type
-          </Badge>
-
-          <Text variant="secondary" className="text-sm">
-            {character.description}
-          </Text>
+  if (loading) {
+    return (
+      <Container size="lg" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-4">
+            Loading Character...
+          </Heading>
+          <Spinner />
         </div>
-      </div>
-    </Card>
-  );
+      </Container>
+    );
+  }
 
   return (
     <Container size="lg" className="py-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <Heading level={1} variant="gradient" className="flex items-center justify-center gap-4">
-          AI BATTLE ARENA
-        </Heading>
-        <Text variant="secondary" size="lg" className="mt-2">
-          Where Artificial Intelligence Meets Combat
-        </Text>
-      </div>
-
-      {/* Battle Area */}
-      <div className="flex flex-col md:flex-row items-center gap-8 justify-between">
-        <CharacterCard 
-          character={leftCharacter} 
-          side="left" 
-          isWinner={winner}
-        />
-
-        {/* Battle Controls */}
-        <div className="flex flex-col items-center gap-6">
-          <Text variant="gradient" size="2xl" className="font-bold">VS</Text>
-          
-          {!battleStarted && !winner && (
-            <Button
-              variant="gradient"
-              size="lg"
-              glow
-              onClick={startBattle}
-              className="animate-pulse-glow"
-            >
-              <Zap className="w-5 h-5 mr-2" />
-              START BATTLE
-            </Button>
-          )}
-
-          {battleStarted && !winner && (
-            <div className="text-center">
-              <Text variant="default" size="lg" className="mb-4">BATTLE IN PROGRESS</Text>
-              <div className="flex justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-              </div>
-            </div>
-          )}
-
-          {winner && (
-            <div className="text-center space-y-4">
-              <Badge variant="gradient" size="lg">
-                {winner === 'left' ? leftCharacter.name : rightCharacter.name} WINS!
-              </Badge>
-              <Button
-                variant="secondary"
-                size="lg"
-                onClick={resetBattle}
-              >
-                <Users className="w-5 h-5 mr-2" />
-                NEW BATTLE
-              </Button>
-            </div>
-          )}
+      {/* Battle Setup Area */}
+      <div className="max-w-md mx-auto">
+        <div className="flex flex-col items-center gap-4">
+          {/* Character Card */}
+          <div className="flex-shrink-0">
+            <BattleCharacterCard 
+              character={character || undefined}
+              showSelectButton={!character}
+              onSelectHero={handleSelectHero}
+              betAmount={betAmount}
+              onBetAmountChange={handleBetAmountChange}
+              handleCreateBattle={handleCreateBattle}
+              creating={creating}
+              error={error}
+            />
+          </div>
         </div>
-
-        <CharacterCard 
-          character={rightCharacter} 
-          side="right" 
-          isWinner={winner}
-        />
       </div>
     </Container>
   );
 };
 
-export default AICharacterBattle;
+export default BattlePage;

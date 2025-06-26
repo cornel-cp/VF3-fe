@@ -3,8 +3,8 @@
 import { Bell, Heart, Plus, Search, Settings } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { ConnectButton } from "@/components/gadget/ConnectButton";
-import { Logo } from "@/components/gadget/Logo";
+import { ConnectButton } from "@/components/wedget/ConnectButton";
+import { Logo } from "@/components/wedget/Logo";
 import { Text } from "@/components/ui/Text";
 import Link from "next/link";
 import { useUser } from "@/hooks/useUser";
@@ -24,6 +24,10 @@ const HeaderMenu = [
     label: "Leaderboard",
     href: "/leaderboard",
   },
+  {
+    label: "My Heroes",
+    href: "/heroes"
+  }
 ];
 
 export const Header = () => {

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -9,7 +10,7 @@ import { Heading } from "@/components/ui/Heading";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { ApiService } from "@/lib/ApiService";
 import { Spinner } from "@/components/ui/Spinner";
-import CharacterGeneratorPreview from "@/components/gadget/CharacterGenerationPreview";
+import CharacterGeneratorPreview from "@/components/wedget/CharacterGenerationPreview";
 
 interface CharacterForm {
   name: string;
@@ -188,6 +189,71 @@ const GeneratePage = () => {
   const [isAttributesValid, setIsAttributesValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingCharacterId, setEditingCharacterId] = useState<string | null>(null);
+  const [loadingCharacter, setLoadingCharacter] = useState(false);
+  const searchParams = useSearchParams();
+
+  // Fetch character data when editing
+  useEffect(() => {
+    const characterId = searchParams.get('characterId');
+    
+    if (characterId && characterId !== 'undefined') {
+      setIsEditMode(true);
+      setEditingCharacterId(characterId);
+      setLoadingCharacter(true);
+      
+      // Fetch character data from backend
+      const fetchCharacter = async () => {
+        try {
+          const character = await ApiService.getInstance().getCharacterById(characterId);
+          
+          // Map ICharacter to CharacterForm
+          const updatedForm: CharacterForm = {
+            name: character.name || '',
+            physicalBuild: {
+              size: character.size || '',
+              bodyType: character.bodyType || '',
+              height: character.height || '',
+              notableFeatures: character.notableFeatures || '',
+            },
+            combatAbilities: {
+              fightingStyle: character.fightingStyle || '',
+              weapons: character.weapons || '',
+              specialTechnique: character.specialTechnique || '',
+              experience: character.experience || '',
+            },
+            attributes: {
+              strength: character.strength || 1,
+              speed: character.speed || 1,
+              defense: character.defense || 1,
+              intelligence: character.intelligence || 1,
+              magicPower: character.magicPower || 1,
+            },
+            specialAbilities: {
+              primaryPower: character.primaryPower || '',
+              powerLimitation: character.powerLimitation || '',
+              defensiveAbility: character.defensiveAbility || '',
+            },
+            weaknesses: {
+              criticalWeakness: character.criticalWeakness || '',
+              environmentalLimitation: character.environmentalLimitation || '',
+            },
+            appearance: character.appearance || '',
+            battlePersonality: character.battlePersonality || '',
+          };
+          
+          setForm(updatedForm);
+        } catch (error) {
+          console.error('Failed to fetch character:', error);
+        } finally {
+          setLoadingCharacter(false);
+        }
+      };
+      
+      fetchCharacter();
+    }
+  }, [searchParams]);
 
   const getAttributesSum = () => {
     return Object.values(form.attributes).reduce(
@@ -285,16 +351,13 @@ ${form.battlePersonality}`;
     setIsLoading(true);
     setVideoUrl(null);
 
-    // ApiService.getInstance().submitPrompt(form.name, generatePrompt()).then((res) => {
-    //   if (res.success) {
-    //     setVideoUrl(res.videoUrl);
-    //     alert('Prompt submitted successfully');
-    //   } else {
-    //     alert('Failed to submit prompt');
-    //   }
-    // }).finally(() => {
-    //   setIsLoading(false);
-    // });
+    ApiService.getInstance().submitPrompt(form).then((res) => {
+      if (res.success) {
+        alert('Prompt submitted successfully');
+      } else {
+        alert('Failed to submit prompt');
+      }
+    })
   };
 
   const renderPreview = () => {
@@ -307,14 +370,28 @@ ${form.battlePersonality}`;
     );
   };
 
+  // Show loading state while fetching character data
+  if (loadingCharacter) {
+    return (
+      <Container size="xl" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-4">
+            Loading Character...
+          </Heading>
+          <Spinner />
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container size="xl" className="py-8">
       <div className="text-center mb-8">
         <Heading level={1} variant="gradient">
-          Character Generator
+          {isEditMode ? 'Edit Character' : 'Character Generator'}
         </Heading>
         <Text variant="secondary" size="lg">
-          Create your AI battle character
+          {isEditMode ? 'Modify your AI battle character' : 'Create your AI battle character'}
         </Text>
       </div>
 
@@ -614,9 +691,14 @@ ${form.battlePersonality}`;
               <Button
                 variant="gradient"
                 onClick={submitPrompt}
-                disabled={isLoading}
+                disabled={isLoading || loadingCharacter}
               >
-                {isLoading ? "Generating..." : "Generate Character"}
+                {loadingCharacter 
+                  ? "Loading..." 
+                  : isLoading 
+                    ? (isEditMode ? "Updating..." : "Generating...") 
+                    : (isEditMode ? "Update Character" : "Generate Character")
+                }
               </Button>
             </div>
           </div>
