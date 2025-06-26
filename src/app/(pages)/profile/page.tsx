@@ -24,14 +24,6 @@ import { useUser } from "@/hooks/useUser";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 
-const initialUser: UserType = {
-  avatar:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-  name: "John Doe",
-  walletAddress: "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgHXv",
-  balance: 0,
-};
-
 const UserProfilePage = () => {
   const { user: contextUser, error, isLoading: isUserLoading } = useUser();
   const { connected } = useWallet();

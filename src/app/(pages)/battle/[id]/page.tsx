@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Zap, Users, Loader2, Play } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
@@ -17,7 +17,7 @@ import { useUser } from '@/hooks/useUser';
 
 
 
-const BattleRoomPage = () => {
+const BattleRoomPageContent = () => {
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -162,6 +162,23 @@ const BattleRoomPage = () => {
         />
       </div>
     </Container>
+  );
+};
+
+const BattleRoomPage = () => {
+  return (
+    <Suspense fallback={
+      <Container size="lg" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-4">
+            Loading Battle Arena...
+          </Heading>
+          <Spinner />
+        </div>
+      </Container>
+    }>
+      <BattleRoomPageContent />
+    </Suspense>
   );
 };
 

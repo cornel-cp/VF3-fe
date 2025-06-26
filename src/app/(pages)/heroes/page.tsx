@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Star, Zap, Shield, Sword, Brain, Sparkles, Trophy, Target, Loader2, Edit, Swords, Plus } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { Text } from '@/components/ui/Text';
 import { Heading } from '@/components/ui/Heading';
 import { Badge } from '@/components/ui/Badge';
+import { Spinner } from '@/components/ui/Spinner';
 import { ApiService } from '@/lib/ApiService';
 import { ICharacter } from '@/types';
 import { useUser } from '@/hooks/useUser';
@@ -194,7 +195,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
   );
 };
 
-const HeroesPage = () => {
+const HeroesPageContent = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -291,7 +292,7 @@ const HeroesPage = () => {
           </div>
           <Heading level={2} className="mb-4">No Heroes Generated Yet</Heading>
           <Text variant="secondary" className="mb-8 max-w-md mx-auto">
-            You haven't generated any characters yet. Create your first AI hero to start battling in the arena!
+            You have not generated any characters yet. Create your first AI hero to start battling in the arena!
           </Text>
           <Button onClick={handleGenerateCharacter} variant="gradient" size="lg" glow>
             <Plus className="w-5 h-5 mr-2" />
@@ -316,6 +317,23 @@ const HeroesPage = () => {
         </>
       )}
     </Container>
+  );
+};
+
+const HeroesPage = () => {
+  return (
+    <Suspense fallback={
+      <Container size="lg" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-8">
+            My Heroes
+          </Heading>
+          <Spinner />
+        </div>
+      </Container>
+    }>
+      <HeroesPageContent />
+    </Suspense>
   );
 };
 

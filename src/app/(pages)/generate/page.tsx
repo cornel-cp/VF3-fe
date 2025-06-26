@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
@@ -184,7 +184,7 @@ const TextAreaWithTooltip: React.FC<TextAreaWithTooltipProps> = ({
   </Tooltip>
 );
 
-const GeneratePage = () => {
+const GeneratePageContent = () => {
   const [form, setForm] = useState<CharacterForm>(initialForm);
   const [isAttributesValid, setIsAttributesValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -705,6 +705,23 @@ ${form.battlePersonality}`;
         </Card>
       </div>
     </Container>
+  );
+};
+
+const GeneratePage = () => {
+  return (
+    <Suspense fallback={
+      <Container size="lg" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-8">
+            Character Generator
+          </Heading>
+          <Spinner />
+        </div>
+      </Container>
+    }>
+      <GeneratePageContent />
+    </Suspense>
   );
 };
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Heading';
@@ -8,9 +8,7 @@ import { ApiService } from '@/lib/ApiService';
 import { ICharacter } from '@/types';
 import { BattleCharacterCard } from '@/components/wedget/BattleCharacterCard';
 
-
-
-const BattlePage = () => {
+const BattlePageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const characterId = searchParams.get('characterId');
@@ -134,6 +132,23 @@ const BattlePage = () => {
         </div>
       </div>
     </Container>
+  );
+};
+
+const BattlePage = () => {
+  return (
+    <Suspense fallback={
+      <Container size="lg" className="py-8">
+        <div className="text-center">
+          <Heading level={1} variant="gradient" className="mb-4">
+            Loading Battle Setup...
+          </Heading>
+          <Spinner />
+        </div>
+      </Container>
+    }>
+      <BattlePageContent />
+    </Suspense>
   );
 };
 
