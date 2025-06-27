@@ -46,7 +46,9 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full overflow-hidden">
-      <Button variant="outline" className="absolute top-10 right-10">Launch App</Button>
+      <Button variant="outline" className="absolute top-10 right-10" onClick={() => {
+        window.location.href = 'https://app.promptclash.fun';
+      }}>Launch App</Button>
       
       <div className="flex flex-col items-center space-y-6">
         <video src="/images/landing/Green_Helmet.mp4" autoPlay loop muted className="w-150 h-150"/>
