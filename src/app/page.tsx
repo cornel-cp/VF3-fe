@@ -36,7 +36,7 @@ export default function HomePage() {
         loop 
         muted 
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="w-100 h-100 object-cover"
       />
     </div>
   );
