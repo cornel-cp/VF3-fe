@@ -40,7 +40,7 @@ interface IBattle {
     attributes?: any;
   };
   betAmount: number;
-  status: 'pending' | 'active' | 'finished';
+  status: 'pending' | 'finished' | 'video_generated';
   winner?: 'creator' | 'challenger';
   video?: string[];
   createdAt: string;

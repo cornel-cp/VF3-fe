@@ -16,7 +16,7 @@ const BattlePageContent = () => {
   const [character, setCharacter] = useState<ICharacter | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [betAmount, setBetAmount] = useState<string>('0.1');
+  const [betAmount, setBetAmount] = useState<string>('1.0');
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
@@ -76,12 +76,12 @@ const BattlePageContent = () => {
     
     // Validate the number
     if (isNaN(bet) || bet <= 0) {
-      setError('Please enter a valid bet amount (minimum 0.01 SOL)');
+      setError('Please enter a valid bet amount (minimum 1 SOL)');
       return;
     }
     
-    if (bet < 0.01) {
-      setError('Minimum bet amount is 0.01 SOL');
+    if (bet < 1) {
+      setError('Minimum bet amount is 1 SOL');
       return;
     }
 

@@ -36,14 +36,19 @@ const BattleRoomPageContent = () => {
     router.push(`/heroes?battleId=${battleId}`);
   };
 
+  const [joining, setJoining] = useState(false);
+
   const handleJoinBattle = async () => {
     if (!characterId || !battle) return;
     
     try {
-        await joinBattle(characterId);
+      setJoining(true);
+      await joinBattle(characterId);
       // Battle data will be updated by the polling interval from the hook
     } catch (err) {
       console.error('Failed to join battle:', err);
+    } finally {
+      setJoining(false);
     }
   };
 
@@ -113,6 +118,7 @@ const BattleRoomPageContent = () => {
         <div className="flex flex-col items-center gap-4 min-w-0">
           <Text variant="gradient" size="xl" className="font-bold">VS</Text>
           
+          {/* Waiting for challenger */}
           {battle.status === 'pending' && !battle.challenger && !characterId && (
             <div className="text-center">
               <Text variant="default" size="lg" className="mb-2">Waiting for challenger...</Text>
@@ -122,7 +128,28 @@ const BattleRoomPageContent = () => {
             </div>
           )}
 
-          {battle.status === 'video_generated' && battle.winner && (
+          {/* Battle started - waiting for prediction */}
+          {(battle.status === 'active' || (battle.status === 'finished' && !battle.winner)) && (
+            <div className="text-center">
+              <Text variant="default" size="lg" className="mb-2">Waiting for battle prediction...</Text>
+              <div className="flex justify-center">
+                <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              </div>
+            </div>
+          )}
+
+          {/* Battle finished, winner determined, waiting for video */}
+          {battle.status === 'finished' && battle.winner && (!battle.video || battle.video.length === 0) && (
+            <div className="text-center">
+              <Text variant="default" size="lg" className="mb-2">Waiting for video generation...</Text>
+              <div className="flex justify-center">
+                <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              </div>
+            </div>
+          )}
+
+          {/* Video ready */}
+          {(battle.status === 'video_generated' || (battle.status === 'finished' && battle.video && battle.video.length > 0)) && battle.winner && (
             <div className="text-center space-y-4">
               <Button
                 variant="gradient"
@@ -158,6 +185,7 @@ const BattleRoomPageContent = () => {
           onSelectHero={handleSelectHero}
           showJoinButton={!isCreator && battle.status === 'pending' && characterId && myCharacter && !battle.characterChallenger}
           onJoinBattle={handleJoinBattle}
+          joining={joining}
           waitingMessage={isCreator ? "Waiting for challenger..." : "Waiting for challenger..."}
         />
       </div>

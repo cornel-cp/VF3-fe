@@ -206,3 +206,5 @@ Epic orchestral music crescendos, synchronizing with the animation of decreasing
 A dramatic close-up shows Slitheric's eyes, one green and one red, as they lock onto Crypto, predicting her every move. Amidst furious clashes, Slitheric finally harnesses his full power, using phase shifting to dodge a colossal blow, leaving Crypto overextended. Seizing this opportunity, he unleashes a devastating ion blast, the environment around them crackling with energy.
 
 With a final, powerful exchange, Slitheric stands victorious as Crypto stumbles, her hitpoint bar dropping to zero. The frozen tundra echoes with silence, the storm fading, leaving the lone victor amidst the swirling snow.
+
+CAUSJGQ2MTc5Y2NhLWQ1ZDYtNGE5Ny05Nzg0LTRmMWE1ZjA5ZWM3NxokMDkyZGJiNGUtMWU3Yi00OTE2LTk1ODAtNjM5ZTM2NDUwYzI4IgNDQUUqJDY2ZGYxYjJiLTljNTctNGI3Ny04NjE4LWMwOWZkZDhiMWQxMg
