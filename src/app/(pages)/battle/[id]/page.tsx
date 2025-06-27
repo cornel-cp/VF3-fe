@@ -122,7 +122,7 @@ const BattleRoomPageContent = () => {
             </div>
           )}
 
-          {battle.status === 'finished' && battle.winner && (
+          {battle.status === 'video_generated' && battle.winner && (
             <div className="text-center space-y-4">
               <Button
                 variant="gradient"

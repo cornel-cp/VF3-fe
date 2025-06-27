@@ -19,6 +19,7 @@ const BattleVideoPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   const { battle, isLoading: loading, error } = useBattle(battleId);
+  console.log(battle, "battle");    
 
   if (loading) {
     return (
@@ -208,21 +209,21 @@ const BattleVideoPage = () => {
               <div className={`p-3 rounded-lg border ${battle.winner === 'challenger' ? 'border-primary bg-primary/10' : 'border-surface-tertiary bg-surface-secondary'}`}>
                 <div className="flex items-center justify-between mb-2">
                   <Text variant="default" size="sm" className="font-medium">
-                    {battle.challengerCharacter?.name}
+                    {battle.characterChallenger?.name}
                   </Text>
                   <div className="flex gap-1">
                     <Badge variant="success" size="sm">
                       <Trophy className="w-2 h-2 mr-1" />
-                      {battle.challengerCharacter?.winNumber || 0}
+                      {battle.characterChallenger?.winNumber || 0}
                     </Badge>
                     <Badge variant="danger" size="sm">
                       <Target className="w-2 h-2 mr-1" />
-                      {battle.challengerCharacter?.loseNumber || 0}
+                      {battle.characterChallenger?.loseNumber || 0}
                     </Badge>
                   </div>
                 </div>
                 <Text variant="muted" size="xs">
-                  {battle.challengerCharacter?.primaryPower}
+                  {battle.characterChallenger?.primaryPower}
                 </Text>
               </div>
             </div>

@@ -149,8 +149,23 @@ export class  ApiService {
     return response.data;
   }
 
-  public async getAllBattles() {
-    const response = await this.axiosInstance.get('/battle/all');
+  public async getBattles(params?: {
+    searchParams?: string;
+    limit?: number;
+    page?: number;
+    status?: 'pending' | 'active' | 'finished';
+    creatorId?: string;
+  }) {
+    const queryParams = new URLSearchParams();
+    
+    if (params?.searchParams) queryParams.append('searchParams', params.searchParams);
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.status) queryParams.append('status', params.status);
+    if (params?.creatorId) queryParams.append('creatorId', params.creatorId);
+    
+    const url = `/battle/all${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+    const response = await this.axiosInstance.get(url);
     return response.data;
   }
 

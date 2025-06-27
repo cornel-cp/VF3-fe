@@ -17,16 +17,16 @@ const HeaderMenu = [
     href: "/",
   },
   {
-    label: "Battle",
-    href: "/battle",
-  },
-  {
-    label: "Leaderboard",
-    href: "/leaderboard",
+    label: "Battles",
+    href: "/battles",
   },
   {
     label: "My Heroes",
     href: "/heroes"
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
   }
 ];
 
