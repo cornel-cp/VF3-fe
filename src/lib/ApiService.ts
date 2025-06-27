@@ -177,7 +177,7 @@ export class  ApiService {
 
   public async getRandomVideo() {
     const response = await this.axiosInstance.get("/video/random");
-    return response.data
+    return response.data.videos
   }
 
 }
