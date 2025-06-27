@@ -38,7 +38,6 @@ export default function HomePage() {
   ];
 
   useEffect(() => {
-    // Animate progress from 0 to 100
     const duration = 3000; // 3 seconds
     const interval = 50; // Update every 50ms
     const increment = (100 / duration) * interval;
@@ -58,7 +57,6 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Slideshow auto-advance
   useEffect(() => {
     const slideTimer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
