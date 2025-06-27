@@ -8,9 +8,29 @@ export default function HomePage() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // TODO: Replace with actual token address
   const tokenAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+
+  // Slideshow data
+  const slides = [
+    {
+      title: "AI-Powered Battle Arena",
+      description: "Create unique characters and watch them battle in AI-generated combat videos",
+      icon: "⚔️"
+    },
+    {
+      title: "Dynamic Video Generation",
+      description: "Advanced AI creates unique battle sequences for every match",
+      icon: "🎬"
+    },
+    {
+      title: "Community Driven",
+      description: "Join a growing community of creators and strategists",
+      icon: "🌟"
+    }
+  ];
 
   useEffect(() => {
     // Animate progress from 0 to 100
@@ -33,6 +53,15 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
+  // Slideshow auto-advance
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(slideTimer);
+  }, [slides.length]);
+
   const handleCopyTokenAddress = async () => {
     try {
       await navigator.clipboard.writeText(tokenAddress);
@@ -52,7 +81,7 @@ export default function HomePage() {
           {/* Cyber Progress Bar */}
           <div className="w-80 sm:w-96 md:w-[32rem] space-y-2">
             <div className="flex justify-between text-xs font-mono text-text-tertiary">
-              <span>[LOAD]</span>
+              <span>[LOADING]</span>
               <span>[{Math.floor(progress)}/100]</span>
             </div>
             <div className="relative h-4 bg-surface-primary border border-primary/30 rounded-none">
@@ -145,6 +174,36 @@ export default function HomePage() {
       >
         Launch App
       </Button>
+
+      {/* Information Slideshow - Below Center */}
+      <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-md px-4">
+        <div className="">
+          {/* Slide Content */}
+          <div className="space-y-3">
+            <Text className="text-lg font-semibold text-primary font-mono text-center">
+              {slides[currentSlide].title}
+            </Text>
+            <Text className="text-sm text-text-secondary leading-relaxed text-center">
+              {slides[currentSlide].description}
+            </Text>
+          </div>
+
+          {/* Slide Indicators */}
+          <div className="flex justify-center space-x-2 mt-4">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-primary shadow-glow'
+                    : 'bg-surface-tertiary/50 hover:bg-surface-tertiary'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Bottom Right Controls */}
       <div className="absolute bottom-2 right-4 flex items-center space-x-3 z-20">
@@ -286,6 +345,14 @@ export default function HomePage() {
           100% {
             transform: translate(100px, -150px) scale(1.2);
             opacity: 0;
+          }
+        }
+        @keyframes slideProgress {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
           }
         }
       `}</style>
