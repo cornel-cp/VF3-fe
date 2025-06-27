@@ -21,6 +21,11 @@ export default function HomePage() {
       icon: "⚔️"
     },
     {
+      title: "Crypto Betting",
+      description: "Secure, transparent wagering on Solana blockchain with instant payouts",
+      icon: "🪙"
+    },
+    {
       title: "Dynamic Video Generation",
       description: "Advanced AI creates unique battle sequences for every match",
       icon: "🎬"
