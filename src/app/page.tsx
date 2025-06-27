@@ -177,7 +177,38 @@ export default function HomePage() {
       </Button>
 
       {/* Bottom Right Controls */}
-      <div className="absolute bottom-2 right-2 flex items-center space-x-3 z-20">
+      <div className="absolute bottom-2 right-4 flex items-center space-x-3 z-20">
+        
+
+        {/* Token Contract Icon */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleCopyTokenAddress}
+          className="w-10 h-10 p-0 bg-surface-elevated/50 backdrop-blur-sm border border-surface-tertiary/30 hover:border-primary/50 text-text-primary hover:text-primary transition-colors relative group"
+        >
+          {copied ? (
+            <CheckCircle className="w-6 h-6 text-green-400" />
+          ) : (
+            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Token/Coin Icon - Hexagon with currency symbol */}
+              <path d="M12 2L21.5 7v10L12 22L2.5 17V7L12 2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+              <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="1" fill="none"/>
+              <path d="M10 10.5h2v-1h-2v1zm0 3h2v-1h-2v1zm4-3h-2v1h2v-1zm0 3h-2v1h2v-1z" fill="currentColor"/>
+              <rect x="9" y="8.5" width="6" height="7" stroke="currentColor" strokeWidth="1" fill="none" rx="1"/>
+            </svg>
+          )}
+          {/* Tooltip */}
+          <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-surface-elevated/90 backdrop-blur-sm text-text-primary text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-surface-tertiary/30">
+            {copied ? "Copied!" : "Copy Token Address"}
+          </div>
+        </Button>
+
         {/* X (Twitter) Link */}
         <Button
           variant="ghost"
@@ -196,28 +227,6 @@ export default function HomePage() {
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </Button>
-
-        {/* Copy Token Button */}
-        {/* <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleCopyTokenAddress}
-          className="flex items-center space-x-2 bg-surface-elevated/50 backdrop-blur-sm border border-surface-tertiary/30 hover:border-primary/50 text-text-primary hover:text-primary transition-colors px-3 py-2"
-        >
-          {copied ? (
-            <>
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span className="text-xs sm:text-sm text-green-400">
-                Copied!
-              </span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-4 h-4" />
-              <span className="text-xs sm:text-sm">Copy Token</span>
-            </>
-          )}
-        </Button> */}
       </div>
 
       {/* CSS Animations */}
