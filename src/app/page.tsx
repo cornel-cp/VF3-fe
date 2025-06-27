@@ -47,20 +47,6 @@ export default function HomePage() {
   if (loading) {
     return (
       <div className="flex flex-col h-screen items-center justify-center w-full overflow-hidden bg-black relative">
-        {/* Cyber Grid Background */}
-        <div className="absolute inset-0 opacity-20">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `
-              linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px)
-            `,
-              backgroundSize: "50px 50px",
-            }}
-          ></div>
-        </div>
-
         {/* Loading Content */}
         <div className="relative z-10 flex flex-col items-center space-y-8 font-cyber">
           {/* Cyber Progress Bar */}
@@ -80,14 +66,6 @@ export default function HomePage() {
                 className="absolute top-0 h-full w-1 bg-highlight shadow-glow-cyan animate-pulse"
                 style={{ left: `${progress}%` }}
               ></div>
-              {/* Grid overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)`,
-                  backgroundSize: "10px 100%",
-                }}
-              ></div>
             </div>
           </div>
 
@@ -103,13 +81,6 @@ export default function HomePage() {
                 : ">> READY FOR DEPLOYMENT"}
             </div>
           </div>
-
-          {/* Cyber loading dots */}
-          <div className="flex space-x-3">
-            <div className="w-2 h-2 bg-primary rounded-none shadow-glow animate-bounce"></div>
-            <div className="w-2 h-2 bg-highlight rounded-none shadow-glow-cyan animate-bounce delay-200"></div>
-            <div className="w-2 h-2 bg-primary rounded-none shadow-glow animate-bounce delay-400"></div>
-          </div>
         </div>
       </div>
     );
@@ -117,7 +88,7 @@ export default function HomePage() {
 
   // Main Content (after loading)
   return (
-    <div className="relative flex flex-col h-screen items-center justify-center w-full overflow-hidden">
+    <div className="relative flex flex-col h-screen items-center justify-center w-full overflow-hidden bg-black">
       {/* Video Background Layer */}
       <video
         src="/images/landing/Green_Helmet2.mp4"
@@ -161,8 +132,7 @@ export default function HomePage() {
           style={{ animation: "drift-3 12s linear infinite" }}
         ></div>
 
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/2 via-transparent to-highlight/2 opacity-30"></div>
+
       </div>
 
       {/* Launch App Button - Top Right */}
