@@ -144,6 +144,32 @@ export class  ApiService {
     return response.data;
   }
 
+  public async startBattle(battleId: string) {
+    const response = await this.axiosInstance.post(`/battle/${battleId}/start`, {}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async placeSideBet(battleId: string, side: 'creator' | 'challenger', amount: number) {
+    const response = await this.axiosInstance.post(`/side-bet/${battleId}`, {
+      side,
+      amount
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    return response.data;
+  }
+
+  public async getSideBet(battleId: string) {
+    const response = await this.axiosInstance.get(`/side-bet/${battleId}`);
+    return response.data;
+  }
+
   public async getBattleById(battleId: string) {
     const response = await this.axiosInstance.get(`/battle/${battleId}`);
     return response.data;
@@ -179,5 +205,6 @@ export class  ApiService {
     const response = await this.axiosInstance.get("/video/random");
     return response.data.videos
   }
+
 
 }

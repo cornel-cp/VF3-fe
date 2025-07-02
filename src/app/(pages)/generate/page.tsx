@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -11,6 +11,7 @@ import { Tooltip } from "@/components/ui/Tooltip";
 import { ApiService } from "@/lib/ApiService";
 import { Spinner } from "@/components/ui/Spinner";
 import CharacterGeneratorPreview from "@/components/wedget/CharacterGenerationPreview";
+import { useModal } from "@/contexts/ModalContext";
 
 interface CharacterForm {
   name: string;
@@ -193,10 +194,11 @@ const GeneratePageContent = () => {
   const [editingCharacterId, setEditingCharacterId] = useState<string | null>(null);
   const [loadingCharacter, setLoadingCharacter] = useState(false);
   const searchParams = useSearchParams();
-
+  const characterId = searchParams.get('characterId');
+  const router = useRouter();
+  const { alert } = useModal();
   // Fetch character data when editing
   useEffect(() => {
-    const characterId = searchParams.get('characterId');
     
     if (characterId && characterId !== 'undefined') {
       setIsEditMode(true);
@@ -253,7 +255,7 @@ const GeneratePageContent = () => {
       
       fetchCharacter();
     }
-  }, [searchParams]);
+  }, [characterId]);
 
   const getAttributesSum = () => {
     return Object.values(form.attributes).reduce(
@@ -343,21 +345,44 @@ BATTLE PERSONALITY:
 ${form.battlePersonality}`;
   };
 
-  const submitPrompt = () => {
+  const submitPrompt = async () => {
     if (!isAttributesValid) {
-      alert("Total attributes must be 35 or less!");
+      await alert({
+        title: "Invalid Attributes",
+        message: "Total attributes must be 35 or less!",
+        variant: "warning"
+      });
       return;
     }
     setIsLoading(true);
     setVideoUrl(null);
 
-    ApiService.getInstance().submitPrompt(form).then((res) => {
+    try {
+      const res = await ApiService.getInstance().submitPrompt(form);
+      setIsLoading(false);
+      
       if (res.success) {
-        alert('Prompt submitted successfully');
+        await alert({
+          title: "Success!",
+          message: "Character created successfully! Redirecting to battle setup...",
+          variant: "success"
+        });
+        router.push(`/battle?characterId=${res.characterId}`);
       } else {
-        alert('Failed to submit prompt');
+        await alert({
+          title: "Error",
+          message: "Failed to submit character. Please try again.",
+          variant: "error"
+        });
       }
-    })
+    } catch (error) {
+      setIsLoading(false);
+      await alert({
+        title: "Error",
+        message: "An unexpected error occurred. Please try again.",
+        variant: "error"
+      });
+    }
   };
 
   const renderPreview = () => {

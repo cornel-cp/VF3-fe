@@ -13,6 +13,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { Spinner } from '@/components/ui/Spinner';
 import { ApiService } from '@/lib/ApiService';
 import { useQuery } from '@tanstack/react-query';
+import { formatBalance } from '@/utils/format';
 
 interface IUser {
   _id: string;
@@ -206,7 +207,7 @@ export default function LeaderboardPage() {
                             {/* Score */}
                             <div className="text-center bg-surface-secondary rounded-lg p-3">
                               <Text variant="default" className="font-bold text-lg mb-1">
-                                {user.score.toLocaleString()}
+                                {formatBalance(user.score)}
                               </Text>
                               <Text variant="secondary" size="xs">Score</Text>
                             </div>
@@ -282,7 +283,7 @@ export default function LeaderboardPage() {
                             {/* Score */}
                             <div className="text-center">
                               <Text variant="default" className="font-bold text-xl mb-1">
-                                {user.score.toLocaleString()}
+                                {formatBalance(user.score)}
                               </Text>
                               <Text variant="secondary" size="xs">Score</Text>
                             </div>
@@ -291,10 +292,10 @@ export default function LeaderboardPage() {
                             <div className="text-center">
                               <div className="flex gap-2 mb-1">
                                 <Badge variant="success" size="sm">
-                                  {user.wins}W
+                                  {formatBalance(user.wins)}W
                                 </Badge>
                                 <Badge variant="danger" size="sm">
-                                  {user.losses}L
+                                  {formatBalance(user.losses)}L
                                 </Badge>
                               </div>
                               <Text variant="secondary" size="xs">
