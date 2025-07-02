@@ -206,5 +206,8 @@ export class  ApiService {
     return response.data.videos
   }
 
-
+  public async getRecentBattles() {
+    const response = await this.axiosInstance.get("/battle/recent");
+    return response.data;
+  }
 }
