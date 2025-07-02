@@ -59,7 +59,7 @@ interface BattlesResponse {
 }
 
 const BattlesPageContent = () => {
-  const [activeTab, setActiveTab] = useState<'pending' | 'finished'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'joined' | 'started'>('pending');
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -162,14 +162,25 @@ const BattlesPageContent = () => {
                 Pending Battles
               </button>
               <button
-                onClick={() => setActiveTab('finished')}
+                onClick={() => setActiveTab('joined')}
                 className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
-                  activeTab === 'finished'
+                  activeTab === 'joined'
                     ? 'bg-primary text-background shadow-md'
                     : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 <Trophy className="w-4 h-4 inline mr-2" />
+                Joined Battles
+              </button>
+              <button
+                onClick={() => setActiveTab('started')}
+                className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                  activeTab === 'started'
+                    ? 'bg-primary text-background shadow-md'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                <Play className="w-4 h-4 inline mr-2" />
                 Finished Battles
               </button>
             </div>

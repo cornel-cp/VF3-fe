@@ -179,7 +179,7 @@ export class  ApiService {
     searchParams?: string;
     limit?: number;
     page?: number;
-    status?: 'pending' | 'video_generated' | 'finished';
+    status?: 'pending' | 'joined' | 'started';
     creatorId?: string;
   }) {
     const queryParams = new URLSearchParams();

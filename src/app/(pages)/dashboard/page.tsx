@@ -325,8 +325,9 @@ export default function DashboardPage() {
               Recent Battle Winners
             </Heading>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {recentWinners.map((battle) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+              {recentWinners.map((battle, index) => {
+                if(index >= 4) return null;
                 // Get the winner character based on battle.winner
                 const winnerCharacter = battle.winner === 'creator' 
                   ? battle.characterCreator 
@@ -369,14 +370,14 @@ export default function DashboardPage() {
                 };
 
                 return (
-                  <div key={battle._id} className="space-y-3">
+                  <div key={battle._id} className="space-y-3 flex flex-col items-center">
                     <BattleCharacterCard
                       character={character}
                       isWinner={true}
                     />
                     
                     {/* Winner Info */}
-                    <Card className="p-3 bg-gradient-to-br from-yellow-900/30 to-gray-900/80 border-yellow-500/30">
+                    <Card className="p-3 bg-gradient-to-br from-yellow-900/30 to-gray-900/80 border-yellow-500/30 w-full">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <Text size="sm" className="font-bold text-yellow-400 flex items-center">
