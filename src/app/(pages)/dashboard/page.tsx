@@ -460,13 +460,13 @@ export default function DashboardPage() {
             </Heading>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Q1 2024 - LIVE */}
+              {/* Q1 2025 - LIVE */}
               <Card className="p-6 bg-gradient-to-br from-green-900/30 to-gray-900/80 border-green-500/50">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                     <Text className="font-bold text-green-400">
-                      Q1 2024 - LIVE
+                      Q1 2025 - LIVE
                     </Text>
                   </div>
                   <div className="space-y-3">
@@ -478,13 +478,13 @@ export default function DashboardPage() {
                 </div>
               </Card>
 
-              {/* Q2 2024 - IN PROGRESS */}
+              {/* Q2 2025 - IN PROGRESS */}
               <Card className="p-6 bg-gradient-to-br from-yellow-900/30 to-gray-900/80 border-yellow-500/50">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
                     <Text className="font-bold text-yellow-400">
-                      Q2 2024 - IN PROGRESS
+                      Q2 2025 - IN PROGRESS
                     </Text>
                   </div>
                   <div className="space-y-3">
@@ -496,31 +496,31 @@ export default function DashboardPage() {
                 </div>
               </Card>
 
-              {/* Q3 2024 - PLANNED */}
+              {/* Q3 2025 - PLANNED */}
               <Card className="p-6 bg-gradient-to-br from-blue-900/30 to-gray-900/80 border-blue-500/50">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
                     <Text className="font-bold text-blue-400">
-                      Q3 2024 - PLANNED
+                      Q3 2025 - PLANNED
                     </Text>
                   </div>
                   <div className="space-y-3">
                     <Text size="sm" className="text-gray-400">VR Battle Mode</Text>
                     <Text size="sm" className="text-gray-400">AI Commentator</Text>
                     <Text size="sm" className="text-gray-400">Cross-chain Support</Text>
-                    <Text size="sm" className="text-gray-400">Merchandise Store</Text>
+                    <Text size="sm" className="text-gray-400">Esports Integration</Text>
                   </div>
                 </div>
               </Card>
 
-              {/* Q4 2024 - VISION */}
+              {/* Q4 2025 - VISION */}
               <Card className="p-6 bg-gradient-to-br from-purple-900/30 to-gray-900/80 border-purple-500/50">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
                     <Text className="font-bold text-purple-400">
-                      Q4 2024 - VISION
+                      Q4 2025 - VISION
                     </Text>
                   </div>
                   <div className="space-y-3">
@@ -531,6 +531,51 @@ export default function DashboardPage() {
                   </div>
                 </div>
               </Card>
+            </div>
+
+            {/* Extended Roadmap for 2026 */}
+            <div className="mt-8">
+              <Heading level={3} className="text-xl font-bold text-primary mb-6 text-center">
+                2026 Vision & Beyond
+              </Heading>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Q1-Q2 2026 */}
+                <Card className="p-6 bg-gradient-to-br from-cyan-900/30 to-gray-900/80 border-cyan-500/50">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-cyan-400 rounded-full"></div>
+                      <Text className="font-bold text-cyan-400">
+                        H1 2026 - EXPANSION
+                      </Text>
+                    </div>
+                    <div className="space-y-3">
+                      <Text size="sm" className="text-gray-400">AI-Generated Storylines</Text>
+                      <Text size="sm" className="text-gray-400">Multi-Platform Streaming</Text>
+                      <Text size="sm" className="text-gray-400">Real-World Events</Text>
+                      <Text size="sm" className="text-gray-400">Celebrity Partnerships</Text>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Q3-Q4 2026 */}
+                <Card className="p-6 bg-gradient-to-br from-pink-900/30 to-gray-900/80 border-pink-500/50">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-pink-400 rounded-full"></div>
+                      <Text className="font-bold text-pink-400">
+                        H2 2026 - FUTURE
+                      </Text>
+                    </div>
+                    <div className="space-y-3">
+                      <Text size="sm" className="text-gray-400">Neural Interface Integration</Text>
+                      <Text size="sm" className="text-gray-400">Quantum Battle Processing</Text>
+                      <Text size="sm" className="text-gray-400">Holographic Viewing</Text>
+                      <Text size="sm" className="text-gray-400">Interplanetary Tournaments</Text>
+                    </div>
+                  </div>
+                </Card>
+              </div>
             </div>
           </section>
         </div>
