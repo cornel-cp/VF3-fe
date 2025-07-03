@@ -50,6 +50,11 @@ interface RecentBattle {
     video: string[];
     weapons: string;
     fightingStyle: string;
+    strength: number;
+    speed: number;
+    defense: number;
+    intelligence: number;
+    primaryPower: string;
   };
   characterChallenger: {
     _id: string;
@@ -57,6 +62,11 @@ interface RecentBattle {
     video: string[];
     weapons: string;
     fightingStyle: string;
+    strength: number;
+    speed: number;
+    defense: number;
+    intelligence: number;
+    primaryPower: string;
   };
   winner: 'creator' | 'challenger';
   status: string;
@@ -349,10 +359,10 @@ export default function DashboardPage() {
                   notableFeatures: "",
                   specialTechnique: "",
                   experience: "Veteran",
-                  strength: 7,
-                  speed: 7,
-                  defense: 7,
-                  intelligence: 7,
+                  strength: winnerCharacter.strength,
+                  speed: winnerCharacter.speed,
+                  defense: winnerCharacter.defense,
+                  intelligence: winnerCharacter.intelligence,
                   magicPower: 7,
                   primaryPower: "",
                   powerLimitation: "",
