@@ -101,7 +101,7 @@ export const ConnectWalletModal = ({
         setTimeout(() => setConnectingWallet(null), 500);
       }
     },
-    [select, onSuccess, onClose]
+    [connect, disconnect, select, onSuccess, onClose]
   );
 
   const getWalletStatus = (walletInfo: WalletInfo) => {

@@ -77,7 +77,7 @@ export const DepositModal = ({ onClose }: DepositModalProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [amount, wallet, onClose]);
+  }, [amount, wallet, onClose, setUser]);
 
   const openInExplorer = () => {
     if (walletAddress) {

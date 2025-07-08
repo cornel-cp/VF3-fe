@@ -292,7 +292,7 @@ const HeroesPageContent = () => {
           </div>
           <Heading level={2} className="mb-4">No Heroes Created Yet</Heading>
           <Text variant="warm" className="mb-8 max-w-md mx-auto">
-            You haven't created any magical heroes yet. Let's bring your first adventurer to life and start exploring wonderful worlds together!
+            You have not created any magical heroes yet. Let us bring your first adventurer to life and start exploring wonderful worlds together!
           </Text>
           <Button onClick={handleGenerateCharacter} variant="gradient" size="lg" glow>
             <Plus className="w-5 h-5 mr-2" />

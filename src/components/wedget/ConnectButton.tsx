@@ -14,7 +14,7 @@ import { formatWalletAddress } from "@/utils/format";
 export const ConnectButton = () => {
   // All hooks must be called at the top level, in the same order every time
   const router = useRouter();
-  const { disconnect, connected, publicKey, signMessage } = useWallet();
+  const { disconnect, connected, publicKey, signMessage, connect } = useWallet();
   const { user, setUser } = useUser();
   const { openWalletModal, isConnected } = useConnectWalletModal();
   const { openDepositModal } = useDepositModal();
@@ -102,7 +102,7 @@ export const ConnectButton = () => {
     } catch (error) {
       initAuth();
     }
-  }, [publicKey, signMessage, initAuth, setUser]);
+  }, [publicKey, signMessage, initAuth, setUser, connect, disconnect]);
 
   const handleSignOut = useCallback(() => {
     localStorage.removeItem("accessToken");
