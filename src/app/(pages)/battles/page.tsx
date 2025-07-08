@@ -139,7 +139,7 @@ const BattlesPageContent = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <Heading level={1} variant="gradient" className="mb-4">
-            ⚔️ Battle Arena
+            Battle Arena
           </Heading>
           <Text variant="secondary" size="lg">
             Join epic battles or watch legendary confrontations
@@ -522,7 +522,7 @@ const BattlesPage = () => {
       <Container size="lg" className="py-8">
         <div className="text-center">
           <Heading level={1} variant="gradient" className="mb-8">
-            ⚔️ Battle Arena
+            Battle Arena
           </Heading>
           <Spinner />
         </div>

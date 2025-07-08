@@ -12,7 +12,7 @@ export const Logo = ({ className = '', width = 50, height = 50 }: LogoProps) => 
     <Link href="/" className={`block ${className}`}>
       <div className="relative">
         <Image
-          src="/images/animate-logo.gif"
+          src="/images/bonk.png"
           alt="PromptWar Logo"
           width={width}
           height={height}

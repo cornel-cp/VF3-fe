@@ -367,7 +367,7 @@ ${form.battlePersonality}`;
           message: "Character created successfully! Redirecting to battle setup...",
           variant: "success"
         });
-        router.push(`/battle?characterId=${res.characterId}`);
+        router.push(`/battle?characterId=${res.character._id}`);
       } else {
         await alert({
           title: "Error",
@@ -413,10 +413,10 @@ ${form.battlePersonality}`;
     <Container size="xl" className="py-8">
       <div className="text-center mb-8">
         <Heading level={1} variant="gradient">
-          {isEditMode ? 'Edit Character' : 'Character Generator'}
+          {isEditMode ? 'Edit Your Hero' : 'Hero Creator'}
         </Heading>
-        <Text variant="secondary" size="lg">
-          {isEditMode ? 'Modify your AI battle character' : 'Create your AI battle character'}
+        <Text variant="warm" size="lg">
+          {isEditMode ? 'Customize your magical adventure hero' : 'Create your magical adventure hero'}
         </Text>
       </div>
 
@@ -472,7 +472,7 @@ ${form.battlePersonality}`;
               />
             </div>
 
-            <Heading level={3}>Combat Abilities</Heading>
+            <Heading level={3}>Adventure Skills</Heading>
             <div className="grid grid-cols-2 gap-4">
               <InputWithTooltip
                 placeholder="Fighting Style"
@@ -697,7 +697,7 @@ ${form.battlePersonality}`;
                 tooltip={tooltips.appearance}
               />
               <TextAreaWithTooltip
-                placeholder="Battle Personality"
+                placeholder="Adventure Personality"
                 value={form.battlePersonality}
                 onChange={(e) =>
                   handleInputChange("battlePersonality", "", e.target.value)
@@ -739,7 +739,7 @@ const GeneratePage = () => {
       <Container size="lg" className="py-8">
         <div className="text-center">
           <Heading level={1} variant="gradient" className="mb-8">
-            Character Generator
+            Hero Creator
           </Heading>
           <Spinner />
         </div>

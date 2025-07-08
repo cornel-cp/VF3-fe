@@ -10,7 +10,7 @@ export const Card = ({
 }: {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "elevated" | "glass" | "gradient" | "neon" | "cyber";
+  variant?: "default" | "elevated" | "glass" | "gradient" | "warm" | "cozy";
   hover?: boolean;
   glow?: boolean;
 }) => {
@@ -19,9 +19,9 @@ export const Card = ({
     default: "bg-background border-surface-tertiary shadow-card",
     elevated: "bg-background-secondary border-surface-elevated shadow-card-hover",
     glass: "bg-background-primary/80 border-primary/20 backdrop-blur-lg glass",
-    gradient: "bg-gradient-cyber border-primary/30 shadow-glow",
-    neon: "bg-background-primary border-primary shadow-glow animate-pulse-glow",
-    cyber:"bg-gradient-to-br from-surface-primary to-surface-secondary border-highlight/30 glass-teal",
+    gradient: "bg-gradient-warm border-primary/30 shadow-sunset",
+    warm: "bg-background-primary border-primary shadow-glow animate-pulse-warm",
+    cozy: "bg-gradient-to-br from-surface-primary to-surface-secondary border-highlight/30 glass-coral",
   };
 
   const hoverStyles = hover

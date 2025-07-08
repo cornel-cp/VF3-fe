@@ -113,7 +113,7 @@ export const BattleCharacterCard = ({
   };
 
   const getAttributeColor = (value: number) => {
-    if (value >= 8) return 'text-green-400';
+    if (value >= 8) return 'text-primary';
     if (value >= 6) return 'text-yellow-400';
     if (value >= 4) return 'text-orange-400';
     return 'text-red-400';

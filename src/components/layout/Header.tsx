@@ -17,7 +17,7 @@ const HeaderMenu = [
     href: "/",
   },
   {
-    label: "Battles",
+    label: "Adventures",
     href: "/battles",
   },
   {
@@ -25,7 +25,7 @@ const HeaderMenu = [
     href: "/heroes"
   },
   {
-    label: "Leaderboard",
+    label: "Hall of Fame",
     href: "/leaderboard",
   }
 ];
@@ -33,7 +33,7 @@ const HeaderMenu = [
 export const Header = () => {
   const { user } = useUser();
   return (
-    <header className="border-b border-surface-tertiary bg-surface-primary/30 backdrop-blur-lg sticky top-0 z-50">
+    <header className="border-b border-surface-tertiary bg-surface-primary/30 backdrop-blur-lg sticky top-0 z-50 shadow-warmth">
       <Container size="xl">
         <div className="flex items-center justify-between h-16">
           <Logo />
@@ -42,16 +42,16 @@ export const Header = () => {
               <Link
                 href={item.href}
                 key={item.label}
-                className="text-text-primary hover:text-primary"
+                className="text-text-primary hover:text-primary transition-colors duration-200 hover:shadow-glow rounded-lg px-3 py-2"
               >
-                <Text>{item.label}</Text>
+                <Text variant="warm">{item.label}</Text>
               </Link>
             ))}
           </div>
           <div className="flex items-center space-x-4">
             {user && (
-              <div className="flex items-center space-x-2">
-                <Text>{formatBalance(user?.balance)}</Text>
+              <div className="flex items-center space-x-2 bg-surface-secondary/50 rounded-lg px-3 py-2 border border-primary/20">
+                <Text variant="cozy" className="font-bold">{formatBalance(user?.balance)}</Text>
                 <Image
                   src="/images/solana_logo_black.png"
                   alt="Solana Logo"

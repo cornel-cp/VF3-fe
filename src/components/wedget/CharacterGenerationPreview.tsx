@@ -649,13 +649,13 @@ const MagicalLoadingPreview = () => {
 
         @keyframes runeGlow {
           0% { 
-            color: #00ff88; 
-            text-shadow: 0 0 10px #00ff88;
+            color: #FF6B35; 
+            text-shadow: 0 0 10px #FF6B35;
             transform: scale(1);
           }
           100% { 
-            color: #88ff00; 
-            text-shadow: 0 0 20px #88ff00;
+            color: #FF8A65; 
+            text-shadow: 0 0 20px #FF8A65;
             transform: scale(1.2);
           }
         }
@@ -687,11 +687,11 @@ const MagicalLoadingPreview = () => {
 
         @keyframes textGlow {
           0% { 
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            text-shadow: 0 0 10px #FF6B35, 0 0 20px #FF6B35;
             transform: scale(1);
           }
           100% { 
-            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+            text-shadow: 0 0 20px #FF6B35, 0 0 40px #FF6B35, 0 0 60px #FF6B35;
             transform: scale(1.02);
           }
         }
@@ -819,16 +819,16 @@ const CharacterGeneratorPreview = ({ isLoading, videoUrl, generatePrompt }: { is
   if (videoUrl) {
     return (
       <div className="space-y-4">
-        <h3 className="text-xl font-bold mb-4 text-green-400">Generated Character</h3>
-        <div className="relative aspect-video w-full rounded-xl overflow-hidden border-2 border-green-400">
+        <h3 className="text-xl font-bold mb-4 text-primary">Generated Hero</h3>
+        <div className="relative aspect-video w-full rounded-xl overflow-hidden border-2 border-primary shadow-warmth">
           <video 
             src={videoUrl}
             controls
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
-        <p className="text-green-300 text-sm text-center opacity-80">
-          Your character has been generated! You can now use this in battle.
+        <p className="text-highlight text-sm text-center opacity-80">
+          Your magical hero has been created! Ready for cozy adventures.
         </p>
       </div>
     );
@@ -836,9 +836,9 @@ const CharacterGeneratorPreview = ({ isLoading, videoUrl, generatePrompt }: { is
 
   return (
     <>
-      <h3 className="text-xl font-bold mb-4 text-green-400">Generated Prompt</h3>
-      <div className="bg-black bg-opacity-60 rounded-xl p-4 border border-green-500">
-        <pre className="whitespace-pre-wrap font-mono text-sm text-green-300">
+      <h3 className="text-xl font-bold mb-4 text-primary">Hero Details</h3>
+      <div className="bg-surface-secondary/60 rounded-xl p-4 border border-primary/50 shadow-warmth">
+        <pre className="whitespace-pre-wrap font-playful text-sm text-highlight">
           {generatePrompt()}
         </pre>
       </div>

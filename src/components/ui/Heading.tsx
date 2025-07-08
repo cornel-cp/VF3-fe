@@ -9,7 +9,7 @@ export const Heading = ({
 }: {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   children: ReactNode;
-  variant?: "default" | "gradient" | "glow";
+  variant?: "default" | "gradient" | "glow" | "warm" | "cozy" | "playful";
   className?: string;
 }) => {
   const Tag = `h${level}`;
@@ -17,11 +17,11 @@ export const Heading = ({
   const baseStyles = "font-bold text-text-primary";
   const variants = {
     default: "text-primary",
-    gradient: "text-gradient-cyber",
-    glow: "text-primary drop-shadow-glow animate-flicker",
-    cyber: "text-gradient-teal",
-    neon: "text-primary shadow-glow animate-pulse-glow",
-    matrix: "text-highlight drop-shadow-glow-teal font-mono",
+    gradient: "text-gradient-warm",
+    glow: "text-primary drop-shadow-warmth animate-twinkle",
+    warm: "text-gradient-sunset",
+    cozy: "text-primary shadow-warmth animate-pulse-warm",
+    playful: "text-highlight drop-shadow-warmth-lg font-playful",
   };
 
   const sizes = {

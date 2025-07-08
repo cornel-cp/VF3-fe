@@ -51,7 +51,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
   };
 
   const getAttributeColor = (value: number) => {
-    if (value >= 8) return 'text-green-400';
+    if (value >= 8) return 'text-primary';
     if (value >= 6) return 'text-yellow-400';
     if (value >= 4) return 'text-orange-400';
     return 'text-red-400';
@@ -187,7 +187,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             className="flex-1"
           >
             <Swords className="w-4 h-4 mr-1" />
-            {battleId ? 'Join Battle' : 'Battle'}
+            {battleId ? 'Join Adventure' : 'Adventure'}
           </Button>
         </div>
       </div>
@@ -290,13 +290,13 @@ const HeroesPageContent = () => {
           <div className="w-20 h-20 bg-primary/30 rounded-full flex items-center justify-center mb-6 mx-auto">
             <Star className="w-10 h-10 text-primary" />
           </div>
-          <Heading level={2} className="mb-4">No Heroes Generated Yet</Heading>
-          <Text variant="secondary" className="mb-8 max-w-md mx-auto">
-            You have not generated any characters yet. Create your first AI hero to start battling in the arena!
+          <Heading level={2} className="mb-4">No Heroes Created Yet</Heading>
+          <Text variant="warm" className="mb-8 max-w-md mx-auto">
+            You haven't created any magical heroes yet. Let's bring your first adventurer to life and start exploring wonderful worlds together!
           </Text>
           <Button onClick={handleGenerateCharacter} variant="gradient" size="lg" glow>
             <Plus className="w-5 h-5 mr-2" />
-            Generate Your First Character
+            Create Your First Hero
           </Button>
         </div>
       ) : (
@@ -309,9 +309,9 @@ const HeroesPageContent = () => {
           
           {/* Add Character Button */}
           <div className="text-center mt-12">
-            <Button onClick={handleGenerateCharacter} variant="secondary" size="lg">
+            <Button onClick={handleGenerateCharacter} variant="warm" size="lg">
               <Plus className="w-5 h-5 mr-2" />
-              Generate Another Character
+              Create Another Hero
             </Button>
           </div>
         </>

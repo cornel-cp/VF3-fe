@@ -99,8 +99,8 @@ export default function LeaderboardPage() {
           <Heading level={1} variant="gradient" className="mb-3 md:mb-4 text-2xl md:text-4xl">
             🏆 Leaderboard
           </Heading>
-          <Text variant="secondary" size="base" className="md:text-lg">
-            Compete with the best warriors in PromptWar Arena
+          <Text variant="warm" size="base" className="md:text-lg">
+            Celebrating the most beloved heroes in our magical adventure community
           </Text>
         </div>
 
@@ -112,7 +112,7 @@ export default function LeaderboardPage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <Input
                   type="text"
-                  placeholder="Search warriors by name..."
+                  placeholder="Search heroes by name..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -152,12 +152,12 @@ export default function LeaderboardPage() {
               <Card variant="default" className="text-center py-8 md:py-12 mx-4">
                 <User className="w-10 h-10 md:w-12 md:h-12 text-text-muted mx-auto mb-4" />
                 <Heading level={3} className="mb-2 text-lg md:text-xl">
-                  {searchTerm ? 'No warriors found' : 'No warriors yet'}
+                  {searchTerm ? 'No heroes found' : 'No heroes yet'}
                 </Heading>
-                <Text variant="secondary" className="text-sm md:text-base px-4">
+                <Text variant="warm" className="text-sm md:text-base px-4">
                   {searchTerm 
-                    ? `No warriors match "${searchTerm}". Try a different search term.`
-                    : 'Be the first to climb the leaderboard!'
+                    ? `No heroes match "${searchTerm}". Try a different search term.`
+                    : 'Be the first to join our hall of fame!'
                   }
                 </Text>
               </Card>
@@ -238,7 +238,7 @@ export default function LeaderboardPage() {
                             {/* Total Deposits */}
                             <div className="text-center bg-surface-secondary rounded-lg p-3">
                               <div className="flex items-center justify-center gap-1 mb-1">
-                                <TrendingUp className="w-3 h-3 text-green-400" />
+                                <TrendingUp className="w-3 h-3 text-primary" />
                                 <Text variant="default" className="font-medium text-sm">
                                   {user.totalDeposits.toFixed(2)}
                                 </Text>
@@ -314,7 +314,7 @@ export default function LeaderboardPage() {
                             {/* Total Deposits */}
                             <div className="text-center">
                               <div className="flex items-center gap-1 mb-1">
-                                <TrendingUp className="w-3 h-3 text-green-400" />
+                                <TrendingUp className="w-3 h-3 text-primary" />
                                 <Text variant="default" className="font-medium">
                                   {user.totalDeposits.toFixed(2)}
                                 </Text>

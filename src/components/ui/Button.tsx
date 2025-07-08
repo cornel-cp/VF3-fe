@@ -11,7 +11,7 @@ export const Button = ({
   ...props
 }: {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost" | "outline" | "gradient";
+  variant?: "primary" | "secondary" | "ghost" | "outline" | "gradient" | "warm" | "cozy";
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
   disabled?: boolean;
@@ -31,10 +31,10 @@ export const Button = ({
     outline:
       "border border-primary text-primary hover:bg-primary hover:text-background hover:shadow-glow",
     gradient:
-      "bg-gradient-cyber text-primary hover:shadow-glow-lg animate-gradient",
-    cyber:
-      "bg-highlight hover:bg-highlight/90 text-background focus:ring-highlight shadow-glow-teal hover:shadow-glow-teal-lg",
-    neon: "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-background shadow-glow hover:shadow-glow-xl animate-flicker",
+      "bg-gradient-warm text-background hover:shadow-sunset-lg animate-gradient font-bold",
+    warm:
+      "bg-highlight hover:bg-highlight/90 text-background focus:ring-highlight shadow-glow-coral hover:shadow-glow-coral-lg",
+    cozy: "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-background shadow-warmth hover:shadow-warmth-xl animate-twinkle",
   };
 
   const sizes = {
@@ -45,7 +45,7 @@ export const Button = ({
   };
 
   const glowStyles = glow
-    ? "shadow-glow hover:shadow-glow-xl animate-pulse-glow"
+    ? "shadow-glow hover:shadow-glow-xl animate-pulse-warm"
     : "";
 
   return (
@@ -56,7 +56,7 @@ export const Button = ({
     >
       {loading && (
         <svg
-          className="animate-spin-glow -ml-1 mr-2 h-4 w-4"
+          className="animate-spin -ml-1 mr-2 h-4 w-4"
           fill="none"
           viewBox="0 0 24 24"
         >
