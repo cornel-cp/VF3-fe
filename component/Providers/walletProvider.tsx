@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode, useMemo } from "react";
 import { WalletProvider, ConnectionProvider } from "@solana/wallet-adapter-react";
 import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
